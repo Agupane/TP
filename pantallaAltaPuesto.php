@@ -1,9 +1,9 @@
 
 <?php
 require ("connect_db.php");
-require ("clase/empresa.php");
-require ("clase/competencia.php");
-require ("clase/puesto.php");
+require ("clases_lucas/empresa.php");
+require ("clases_lucas/competencia.php");
+require ("clases_lucas/puesto.php");
 
 /*cargo todas las empresas para mostrar luego en el combobox*/
 $GestorPuesto= GestorPuesto::getInstancia();
@@ -13,6 +13,7 @@ $empresas = $GestorPuesto->getAllEmpresas();
 
 $GestorCompetencia=GestorCompetencia::getInstancia();
 $competencias= $GestorCompetencia->buscarCompetencias();
+
 
 ?>
 
@@ -96,7 +97,7 @@ $competencias= $GestorCompetencia->buscarCompetencias();
 <!-- Services Section -->
 
 <center>
-	<form action="operacion.php" method="POST" enctype="multipart/form-data" onSubmit="return validation()">
+	<form action="darDeAltaPuesto.php" method="POST" enctype="multipart/form-data" onSubmit="return validation()">
 		<br><br><br><br><br><br>Codigo <input type="text" REQUIRED name="codigo" placeholder="Codigo..." value="" /> <br><br>
 		Nombre del Puesto <input type="text" REQUIRED name="nombrePuesto" placeholder="Nombre del Puesto..." value="" /> <br><br>
 		Descripcion <input class="form-control" type="text" REQUIRED name="descripcion" placeholder="Descripcion..." value="" /> <br>
@@ -108,6 +109,35 @@ $competencias= $GestorCompetencia->buscarCompetencias();
             <option value="<?php echo $row['id_empresa']?>"><?php echo $row['nombre']?></option>
         <?php } ?>
        </select><br><br>
+       <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Activa</th>
+        <th>Competencia</th>
+        <th>Ponderacion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php 
+        while($row =$competencias->fetch_assoc()){ ?>
+
+        <tr>
+        <td><input type="checkbox" name="competencia[]" value="<?php echo $row['codigo_competencia']; ?>"></td>
+        <td> <?php echo $row['nombre']; ?> </td>
+        <td><select name="pond[]" class="form-control" placeholder=".col-xs-2">         <option value="0">-Seleccione ponderacion</option>
+                       <option value="1">1</option>
+                       <option value="2">2</option>
+                       <option value="3">3</option>
+                       <option value="4">4</option>
+                       <option value="5">5</option>
+                       <option value="6">6</option>
+                       <option value="7">7</option>
+                       <option value="8">8</option>
+                       <option value="9">9</option></select></td>
+        </tr>
+      <?php } ?>
+       </tbody>
+  </table>
 		<!--<input type="file" REQUIRED name="Imagen"/> <br><br>-->
 		<input type="submit" value="Aceptar" />
 	</form>

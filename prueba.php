@@ -56,15 +56,24 @@ $name = $email = $gender = $comment = $website = "";
   <br><br>
   <input type="submit" name="submit" value="Submit">  
 </form>
-
-<?php 
-while($row =$competencias->fetch_assoc()){
-  echo $row['nombre'] . "  " . $row['codigo_competencia'];
-
-  echo "<br><br>";
-}
-
-?>
-
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Activa</th>
+        <th>Competencia</th>
+        <th>Ponderacion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php 
+        while($row =$competencias->fetch_assoc()){ ?>
+        <tr>
+        <td><input type="radio"></td>
+        <td> <?php echo $row['nombre']; ?> </td>
+        <td>asdsa</td>
+        </tr>
+      <?php } ?>
+       </tbody>
+  </table>
 </body>
 </html>

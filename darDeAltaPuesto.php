@@ -1,5 +1,20 @@
 <?php 
-require ("puesto.php");
+require ("clases_lucas/puesto.php");
+
+
+$competenciaPonderacion=array(); 
+$i=0;
+
+foreach ($_POST['pond'] as $pond) {
+    
+    if($pond!= 0){
+    	$competenciaPonderacion[$i][0]= $_POST['competencia'][$i];
+    	$competenciaPonderacion[$i][1]= $pond;
+    	$i++;
+
+    }
+};
+
 
 
 $codigo = $nombre = $empresa = $descripcion = $caracteristicasPuestos = "";
@@ -11,19 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$unPuestoDTO->setNombre($_POST["nombre"]);
 	$unPuestoDTO->setEmpresa($_POST["id_empresa"]);
 	$unPuestoDTO->setDescripcion($_POST["descripcion"]);
-	$unPuestoDTO->setCaracteristicasPuesto($_POST["caracterisitcas"]);
+	$unPuestoDTO->setCaracteristicasPuesto($_POST["caracteristicas"]);
 
 	$GestorPuesto = GestorPuesto::getInstancia();
 	$GestorPuesto->guardar($unPuestoDTO);
 	
 }
-/*
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}*/
 
 
 
