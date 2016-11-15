@@ -1,119 +1,138 @@
 <?php
 class Puesto{
- 			private $codigo;
- 			private $nombre;
- 			private $eliminado;
- 			private $empresa;
- 			private $descripcion;
- 			private $listaponderacionCompetencia;
- 			private $cuestionario;
 
-            public function __construct($codigo,$nombre,$descripcion,$empresa){
+    private $codigo;
+    private $empresa;
+    private $descripcion;
+    private $listaponderacionCompetencia;
+    private $cuestionario;
+    private $nombre;
+    private $eliminado;
+
+    public function __construct($codigo,$nombre,$descripcion,$empresa){
                 $this->codigo= $codigo;
                 $this->nombre= $empresa;
                 $this->eliminado = false;
                 $this->descripcion = $descripcion;
                 $this->empresa = $empresa;
-                $this->$listaponderacionCompetencia=null;
+                $this->listaponderacionCompetencia=null;
                 $this->cuestionarios=null;
 
             }
- 		
-}
 
-class PuestoDTO{
- 			private $codigo;
-            private $nombre;
-            private $idEmpresa;
-            private $descripcion;
-            private $caracteristicasPuesto; /* va a tener un array con dos elementos en casda posicion*/
-    /**
-     * @return mixed
-     */
     public function getCodigo()
     {
         return $this->codigo;
     }
-
-    /**
-     * @param mixed $codigo
-     */
     public function setCodigo($codigo)
     {
         $this->codigo = $codigo;
     }
-
-
-    /**
-     * @return mixed
-     */
     public function getNombre()
     {
         return $this->nombre;
     }
-
-    /**
-     * @param mixed $nombre
-     */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
     }
-
-
-    /**
-     * @return mixed
-     */
-    public function getIdEmpresa()
+    public function getEliminado()
     {
-        return $this->IdEmpresa;
+        return $this->eliminado;
     }
-
-    /**
-     * @param mixed $empresa
-     */
-    public function setIdEmpresa($empresa)
+    public function setEliminado($eliminado)
     {
-        $this->IdEmpresa = $empresa;
+        $this->eliminado = $eliminado;
     }
-
-
-    /**
-     * @return mixed
-     */
+    public function getEmpresa()
+    {
+        return $this->empresa;
+    }
+    public function setEmpresa($empresa)
+    {
+        $this->empresa = $empresa;
+    }
     public function getDescripcion()
     {
         return $this->descripcion;
     }
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+    }
+    public function getListaponderacionCompetencia()
+    {
+        return $this->listaponderacionCompetencia;
+    }
+    public function setListaponderacionCompetencia($listaponderacionCompetencia)
+    {
+        $this->listaponderacionCompetencia = $listaponderacionCompetencia;
+    }
+    public function getCuestionario()
+    {
+        return $this->cuestionario;
+    }
+    public function setCuestionario($cuestionario)
+    {
+        $this->cuestionario = $cuestionario;
+    }
 
-    /**
-     * @param mixed $descripcion
-     */
+ 		}
+class PuestoDTO{
+    private $codigo;
+    private $nombre;
+    private $empresa;
+    private $descripcion;
+    private  $caracteristicasPuesto;
+ 
+
+    
+    public function getcaracteristicasPuesto()
+    {
+        return $this->caracteristicasPuesto;
+    }
+    public function setcaracteristicasPuesto($caracteristicasPuesto)
+    {
+        $this->caracteristicasPuesto = $caracteristicasPuesto;
+    }
+    public function getCodigo()
+    {
+        return $this->codigo;
+    }
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
+    }
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    }
+    public function getEmpresa()
+    {
+        return $this->empresa;
+    }
+    public function setEmpresa($empresa)
+    {
+        $this->empresa = $empresa;
+    }
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
     }
 
 
-    /**
-     * @return mixed
-     */
-    public function getCaracteristicasPuesto()
-    {
-        return $this->caracteristicasPuesto;
-    }
 
-    /**
-     * @param mixed $caracteristicasPuesto
-     */
-    public function setCaracteristicasPuesto($caracteristicasPuesto)
-    {
-        $this->caracteristicasPuesto = $caracteristicasPuesto;
-    }
  		}
-
-
 class GestorPuesto{
+
     public static $instancia;
 
     public static function getInstancia() {
@@ -123,35 +142,22 @@ class GestorPuesto{
         return self::$instancia;
     }
 
-    public function guardar(puestoDTO $unDTO){
-
-        $this->ValidarNulidadYTipo($unDTO);
-        $this->ValidarNombre($unDTO->getNombre());
-        
-        $empresa = $this->getEmpersa( $unDTO->getIdEmpresa());
-        $pu = new Puesto($unPuestoDTO->getCodigo(), $unPuestoDTO->getNombre(), $unPuestoDTO->getDescripcion(),$empresa );
-
-
-
-    }
-
 	public function getAllEmpresas(){
 	$empresaDAO = new empresaDAO;
 	$resultado = $empresaDAO->getAll();
 	return $resultado;
 
 	}
-
-	public function ValidarNulidadYTipo( PuestoDTO $unDto){
+    public function ValidarNulidadYTipo( PuestoDTO $unDto){
         return($unDto->getNombre()->is_string() &&
                 $unDto->getCodigo()->is_int() &&
                 $unDto->getDescripcion()->is_string() &&
-                $unDto->getIdEmpresa()->is_int() &&
+                $unDto->getEmpresa()->is_string() &&
                 $unDto->getCaracteristicasPuesto()->is_string() &&
            !($unDto->getNombre()->is_null() &&
             $unDto->getCodigo()->is_null() &&
             $unDto->getDescripcion()->is_null() &&
-            $unDto->getIdEmpresa()->is_null() &&
+            $unDto->getEmpresa()->is_null() &&
             $unDto->getCaracteristicasPuesto()->is_null())
                 );
     }
@@ -160,8 +166,12 @@ class GestorPuesto{
         return($valido->ValidarNombre($unDTO));
         // retorna true si ya existe uno y false si no existe;
     }
-
+    public function getEmpresa(PuestoDTO $unDTO){
+        $emp = new EmpresaDAO();
+        $emp->getEmpresa($unDTO);
+        return $emp;
     }
+    
     public function getCompetencia ( $algo){
         $competencia = new competencia();
         $competencia->getCompetenciaa($algo);
@@ -176,7 +186,25 @@ class GestorPuesto{
     public function Guardar(PuestoDTO $unDTO){
         $nuevoPuesto = null;
             if( $this->ValidarNulidadYTipo($unDTO) &&
-                !$this->ValidarNombre($unDTO->)) {
+                !$this->ValidarNombre($unDTO)) {
+
+
+                $nuevoPuesto->New($unDTO);
+                $i = 0;
+                while (!$unDTO->getcaracteristicasPuesto()->next()->is_null()) {
+                    $comp = $this->getCompetencia($unDTO->getcaracteristicasPuesto()->get($i)->get(0));
+                    $pond = $this->crearPonderacion($comp, $this->setCompetencia($unDTO->getcaracteristicasPuesto()->get($i)->get(1)));
+                    $nuevoPuesto->getlistaCompetencia()->add($pond);
+                }
+                $this->save($nuevoPuesto);
+            }
+            else if (!$this->ValidarNulidadYTipo($unDTO)){echo "Datos Invalidos";}
+                    else echo "El nombre ya existe";
+
+
+    }
+
+
 
 }
 
@@ -184,17 +212,31 @@ class PuestoDAO{
 
     public function ValidarNombre(PuestoDTO $unDTO){
         $flag = false;
-        $base = new mysqli("localhost","root","","tp");
+        $base = new connect_db;
         $sql = "SELECT nombre FROM puesto";
         $resultado = $base->query($sql);
-        while ($row = $resultado->fetch_assoc()){
-            if($row['nombre'] == $unDTO->getNombre()){
+        foreach ($resultado as $elemento){
+            if($elemento = $unDTO->getNombre()){
                 $flag = true;
             }
         }
-        $base->close();
         return($flag);
-        
+        $base->close();
+    }
+    public function Save($pu){
+        $conexion = new mysqli("localhost","root","","tp");
+        $codigo = $pu->getCodigo();
+        $nombre = $pu->getNombre();
+        $eliminado = false;
+        $empresa = $pu->getEmpresa();
+        $descripcion = $pu->getDescripcion();
+        $cuestionario = $pu->getCuestionario();
+
+        $query="INSERT INTO puesto(id_empresa, nombre, descripcion, codigo_puesto, eliminado, id_registroAuditoria) 
+                VALUES ($empresa, $nombre,$descripcion, $codigo, $eliminado, NULL )";
+        $resultado = $conexion -> query($query);
+
+
     }
 }
 ?>

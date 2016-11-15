@@ -4,17 +4,17 @@ class competencia{
  			private $nombre;
  			private $descripcion;
  			private $listaFactor;
- 		}
+
 
 
  		        public function __construct($codigo,$nombre,$descripcion){
                 $this->codigo= $codigo;
                 $this->nombre=$nombre;
                 $this->descripcion = $descripcion;
-                $this->$listaFactor=null;
+                $this->listaFactor=null;
 
 
-            }
+            }}
 
 /*class GestorCompetencia{
 	public function 
@@ -56,7 +56,7 @@ class GestorCompetencia
 				}
     else{
         echo "Error";
-    }
+    }}
 
     public static function getInstancia() {
         if (self::$instancia === null) {
