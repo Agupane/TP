@@ -11,38 +11,41 @@ class competencia{
 }*/
 class competenciaDAO{
 	
-	public function lazyCompetencias(){
+	public function lazyCompetencias()
+	{
 		$conexion = new mysqli("localhost","root","","tp");
-		$query="select codigo_competencia,nombre from competencia";
-		$resultado = $conexion -> query($query);
+		$query="SELECT codigo_competencia,nombre from competencia";
+		$resultado = $conexion->query($query);
 		if($resultado){
 			return $resultado;
 	}
 		else{
 		echo "Error";
 	}
-	$conexion->close();
-	}
-
-	public function getCompetenciaa ( $algo){
-		$conexion = new mysqli("localhost","root","","tp");
-		$query="select * from competencia";
-		$resultado = $conexion -> query($query);
-		if($resultado){
-			return $resultado;
-	}
-    else{
-        echo "Error";
-    }
-
-	$resultado->fetch_assoc();
-        foreach ($resultado as $item){
-            $item[0] = $algo;
-            return $item;
-        }
-	$conexion->close();
-
 	}
 }
 
+/**
+* 
+*/
+class GestorCompetencia 
+{
+	public static $instancia;
+
+    public static function getInstancia() {
+        if (self::$instancia === null) {
+            self::$instancia = new self();
+        }
+        return self::$instancia;
+    }
+
+  public function buscarCompetencias(){
+  		$competenciaDAO= new competenciaDAO;
+  		$resultado=$competenciaDAO->lazyCompetencias();
+  		return $resultado;
+
+  }  
+
+
+}
 ?>
