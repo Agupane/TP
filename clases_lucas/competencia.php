@@ -6,6 +6,16 @@ class competencia{
  			private $listaFactor;
  		}
 
+
+ 		        public function __construct($codigo,$nombre,$descripcion){
+                $this->codigo= $codigo;
+                $this->nombre=$nombre;
+                $this->descripcion = $descripcion;
+                $this->$listaFactor=null;
+
+
+            }
+
 /*class GestorCompetencia{
 	public function 
 }*/
@@ -24,22 +34,24 @@ class competenciaDAO{
 	$conexion->close();
 	}
 
-	public function getCompetenciaa ( $algo){
+
+	//busca una competencia dado un codigo_competencia. Lista de factores en nulo
+	public function getCompetencia ( $codigo_competencia){
 		$conexion = new mysqli("localhost","root","","tp");
-		$query="select * from competencia";
+		$query="SELECT * from competencia where codigo_competencia=$codigo_competencia";
 		$resultado = $conexion -> query($query);
+
 		if($resultado){
-			return $resultado;
-	}
+			$row=$resultado->fetch_assoc();
+			$competencia= new Competencia($row['codigo_competencia'],$row['nombre'],$row['competencia']);
+
+
+				}
     else{
         echo "Error";
     }
 
-	$resultado->fetch_assoc();
-        foreach ($resultado as $item){
-            $item[0] = $algo;
-            return $item;
-        }
+    return $competencia;
 	$conexion->close();
 
 	}

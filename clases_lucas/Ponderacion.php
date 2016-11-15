@@ -15,6 +15,17 @@ class PonderacionCompetencia{
     private $ponderacion;
     private $Competencia;
 
+
+  public  function  __construct ($codigo_competencia,$ponderacion){
+        
+        $GestorCompetencia=GestorCompetencia::getInstancia();
+        $Competencia=$GestorCompetencia->getCompetencia($codigo_competencia);
+        $this->Competencia=$Competencia;
+        $this->ponderacion=$ponderacion;
+        return $this;
+    }
+
+
     /**
      * @return mixed
      */

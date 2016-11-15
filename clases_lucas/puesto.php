@@ -185,7 +185,7 @@ class GestorPuesto{
     public function Guardar(PuestoDTO $unDTO){
         $nuevoPuesto = null;
             if( $this->ValidarNulidadYTipo($unDTO) &&
-                !$this->ValidarNombre($unDTO)) {
+                !$this->ValidarNombre($unDTO->)) {
 
 
                 $nuevoPuesto->New($unDTO);
