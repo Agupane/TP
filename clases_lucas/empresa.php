@@ -7,7 +7,39 @@ class Empresa{
  			private $localidad;
  			private $pais;
  			private $cp;
- 		}
+
+
+     public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    }
+
+    public function setDireccion($direccion)
+    {
+        $this->direccion = $direccion;
+    }
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
+    }
+         public function setLocalidad($localidad)
+    {
+        $this->localidad = $localidad;
+    }
+         public function setPais($pais)
+    {
+        $this->pais = $pais;
+    }
+         public function setCp($cp)
+    {
+        $this->cp = $cp;
+    }
+
+
+
+
+
+}
 
 class EmpresaDAO {
 	public function getAll(){
@@ -19,28 +51,32 @@ class EmpresaDAO {
 	}
 		else{
 		echo "Error";
-	}
+	       }
 	}
 
-	public function getEmpresa( PuestoDTO $unDTO){
-       $coso = null;
+
+	public function getEmpresa($id_empresa){
+
         $conexion = new mysqli("localhost","root","","tp");
-        $query="select * from empresa";
+        $query="SELECT * FROM empresa WHERE id_empresa=$id_empresa";
         $resultado = $conexion -> query($query);
+        $row = $resultado->fetch_assoc();
         if($resultado){
-            return $resultado;
+            $empresa=new empresa();
+            $empresa->setNombre($row['nombre']);
+            $empresa->setDireccion($row['direccion']);
+            $empresa->setLocalidad($row['localidad']);
+            $empresa->setPais($row['pais']);
+            $empresa->setTipo($row['tipo']);
+            $empresa->setCp($row['cp']);
+
         }
         else{
-            echo "Error";
+            return "Error";
         }
-        $resultado->fetch_assoc();
-        foreach ($resultado as $elemento){
-                if ($elemento[0] = $unDTO->getCodigo()){
-                    $coso = $elemento;
-                }
-        }
-        if ($coso->is_null()){ echo "No existe el elemento";}
-        else return $coso;
+        
+        return $empresa;    
+
     }
 
 }

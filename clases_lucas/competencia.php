@@ -21,19 +21,26 @@ class competencia{
 }*/
 class competenciaDAO{
 	
-	public function lazyCompetencias(){
+	public function lazyCompetencias()
+	{
 		$conexion = new mysqli("localhost","root","","tp");
-		$query="select codigo_competencia,nombre from competencia";
-		$resultado = $conexion -> query($query);
+		$query="SELECT codigo_competencia,nombre from competencia";
+		$resultado = $conexion->query($query);
 		if($resultado){
 			return $resultado;
 	}
 		else{
 		echo "Error";
 	}
-	$conexion->close();
 	}
+}
 
+/**
+* 
+*/
+class GestorCompetencia 
+{
+	public static $instancia;
 
 	//busca una competencia dado un codigo_competencia. Lista de factores en nulo
 	public function getCompetencia ( $codigo_competencia){
@@ -51,10 +58,20 @@ class competenciaDAO{
         echo "Error";
     }
 
-    return $competencia;
-	$conexion->close();
+    public static function getInstancia() {
+        if (self::$instancia === null) {
+            self::$instancia = new self();
+        }
+        return self::$instancia;
+    }
 
-	}
+  public function buscarCompetencias(){
+  		$competenciaDAO= new competenciaDAO;
+  		$resultado=$competenciaDAO->lazyCompetencias();
+  		return $resultado;
+
+  }  
+
+
 }
-
 ?>
