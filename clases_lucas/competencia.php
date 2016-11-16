@@ -14,6 +14,9 @@ class competencia{
 
 
             }
+        public function getCodigo(){
+        	return $this->codigo;
+        }
         public function getNombre(){
         	return $this->nombre;
         }
@@ -39,7 +42,7 @@ class competenciaDAO{
 	public function getCompetencia($codigo_competencia){
 		//lo trae de forma lazy, no trae los factores
 	    $conexion = new mysqli("localhost","root","","tp");
-        $query="SELECT * FROM competencia WHERE codigo_competencia=$codigo_competencia";
+        $query="SELECT * FROM competencia WHERE codigo_competencia='$codigo_competencia'";
         $resultado = $conexion -> query($query);
         $row = $resultado->fetch_assoc();
         if($resultado){

@@ -27,6 +27,10 @@ class PonderacionCompetencia{
     /**
      * @param mixed $ponderacion
      */
+
+    public function getCompetencia(){
+        return $this->competencia;
+    }
     public function setPonderacion($ponderacion)
     {
         $this->ponderacion = $ponderacion;
@@ -55,17 +59,17 @@ class PonderacionCompetencia{
 class PonderacionCompetenciaDAO 
 {
     //recibe una ponderacionCompetencia y la guarda 
-    public function save($codigo_puesto, PonderacionCompetencia $PonderacionCompetencia){
+    public function save($codigo_puesto, PonderacionCompetencia $ponderacionCompetencia){
 
-        $codigo_competencia=$PonderacionCompetencia->getCompetencia()->getCodigo();
+        $codigo_competencia=$ponderacionCompetencia->getCompetencia()->getCodigo();
         $pond=$ponderacionCompetencia->getPonderacion();
-
         $conexion = new mysqli("localhost","root","","tp");
-        $query="INSERT into ponderacionCompetencia VALUES ($codigo_competencia,$codigo_puesto,$pond)";
+        $query="INSERT into ponderacionCompetencia VALUES ('$codigo_competencia','$codigo_puesto','$pond')";
 
         $resultado = $conexion->query($query);
         if($resultado){
-            return ;
+            $conexion->close();
+            return "se inserto una pondercion";
     }
         else{
         echo "Error";

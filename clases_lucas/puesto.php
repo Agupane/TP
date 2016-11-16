@@ -166,14 +166,10 @@ class GestorPuesto{
     }
 
     public function guardar(puestoDTO $unPuestoDTO){
-        /* por ahora no funciona la validacion
-        if($this->ValidarNulidadYTipo($unDTO)){
-            echo "funciona nulidad y tipo";
-        }*/
-        if(!($this->ValidarNombre($unPuestoDTO->getNombre())) ){
+       
+        if(($this->ValidarNulidadYTipo($unPuestoDTO)) && !($this->ValidarNombre($unPuestoDTO->getNombre())) ){
             
-        
-    //busco la instancia de empresa con el id en el dto
+           //busco la instancia de empresa con el id en el dto
         $empresaDAO= new empresaDAO;
         $empresa = $empresaDAO->buscarEmpresa( $unPuestoDTO->getIdEmpresaDTO());
 
@@ -187,19 +183,17 @@ class GestorPuesto{
         $competencia=$competenciaDAO->getCompetencia($unPuestoDTO->getCompetencia($i));
 
         $ponderacion=$unPuestoDTO->getPonderacion($i);
-
         $po=new ponderacionCompetencia($competencia,$ponderacion);
 
         $pu->addPonderacion($po);
 
     }
 
-
         $puestoDAO = new puestoDAO;
         $puestoDAO->save($pu);
 
     }
-
+    else{echo "ya existe el nombre";}
 
     }
 
@@ -212,17 +206,19 @@ class GestorPuesto{
 
 
 	public function ValidarNulidadYTipo( PuestoDTO $unDto){
-        return(is_string($unDto->getNombre()) &&
-                is_int($unDto->getCodigo()) &&
-                is_string($unDto->getDescripcion()) &&
-                is_int($unDto->getIdEmpresa()) &&
-                is_array($unDto->getCaracteristicasPuesto()) &&
-           !(is_null($unDto->getNombre()) &&
-            is_null($unDto->getCodigo()) &&
-            is_null($unDto->getDescripcion()) &&
-            is_null($unDto->getIdEmpresa()) &&
-            is_null($unDto->getCaracteristicasPuesto()))
-                );
+        if((is_string($unDto->getNombre()) &&
+                        is_numeric($unDto->getCodigo()) &&
+                        is_string($unDto->getDescripcion()) &&
+                        is_numeric($unDto->getIdEmpresaDTO()) &&
+                        is_array($unDto->getCaracteristicasPuesto()) &&
+                   !(is_null($unDto->getNombre()) &&
+                    is_null($unDto->getCodigo()) &&
+                    is_null($unDto->getDescripcion()) &&
+                    is_null($unDto->getIdEmpresaDTO()) &&
+                    is_null($unDto->getCaracteristicasPuesto()))
+                        )
+                ){return true;}
+            else return false;
     }
     public function ValidarNombre($nombre){
         $puestoDAO = new PuestoDAO();
@@ -254,25 +250,28 @@ class PuestoDAO{
         $conexion = new mysqli("localhost","root","","tp");
         $codigo = $pu->getCodigo();
         $nombre = $pu->getNombre();
-        $eliminado = false;
+        $eliminado=0;
         $descripcion = $pu->getDescripcion();
         $id_empresa = $pu->getEmpresa()->getIdEmpresa();
-        
-        //guarda puesto, el for guarda las ponderaciones
+         //guarda puesto, el for guarda las ponderaciones
         //mirar que la columna esta mal escrita en la base de datos 
-        $query="INSERT INTO puesto VALUES ($codigo,$nombre,$descripcion,$eliminado,$id_empresa,NULL) ";
+        $query="INSERT INTO puesto (codigo_puesto, nombre,descripcion,eliminado,id_empresa) VALUES ('$codigo','$nombre','$descripcion','$eliminado','$id_empresa') ";
         $resultado = $conexion->query($query);
         if($resultado){
-            echo "lo ingreso a la base de datos";
+            $lista=$pu->getListaPonderacionCompetencia();
+            $PonderacionCompetenciaDAO= new PonderacionCompetenciaDAO;
+            for ($j=0; $j<count($lista);$j++ ){
+
+                $PonderacionCompetenciaDAO->save($pu->getCodigo(), $lista[$j]);
+
+
+            }
+            echo "lo ingreso el puesto a la base de datos";
+
         }
-            /*
-            $lista=$pu->getListaPonderacionCompetencia;
-             for ($j=0; $j<count($lista);$j++ ){
-                    echo $lista[$j]->getNombreCompetencia() . "->" . $lista[$j]->getPonderacion();
+        else {echo "no ingreso nada a la base de datos";}
 
-
-                }*/
-             }
+    }
 
 
 
