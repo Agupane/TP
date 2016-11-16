@@ -226,6 +226,12 @@ class GestorPuesto{
         // retorna true si ya existe uno y false si no existe;
     }
 
+    public function buscarPuestos(){
+        $puestoDAO = new puestoDAO;
+        $resultado = $puestoDAO->getAll();
+        return $resultado;
+    }
+
 
 }
 
@@ -273,7 +279,17 @@ class PuestoDAO{
 
     }
 
-
+    public function getAll(){
+        $conexion = new mysqli("localhost","root","","tp");
+        $query="SELECT codigo_puesto,nombre,id_empresa from puesto";
+        $resultado = $conexion -> query($query);
+        if($resultado){
+            return $resultado;
+    }
+        else{
+        echo "Error";
+           }
+    }
 
 
 
