@@ -9,8 +9,13 @@
 
 class PonderacionCompetencia{
     private $ponderacion;
-    private $Competencia;
+    private $competencia;
 
+    //recibe una compentecia (instancia) y una ponderacion (int)
+    public function __construct(competencia $competencia,$ponderacion){
+        $this->ponderacion= $ponderacion;
+        $this->competencia=$competencia;
+        }
     /**
      * @return mixed
      */
@@ -30,17 +35,17 @@ class PonderacionCompetencia{
     /**
      * @return mixed
      */
-    public function getCompetencia()
+    public function getNombreCompetencia()
     {
-        return $this->Competencia;
+        return $this->competencia->getNombre();
     }
 
     /**
      * @param mixed $Competencia
      */
-    public function setCompetencia($Competencia)
+    public function setCompetencia($competencia)
     {
-        $this->Competencia = $Competencia;
+        $this->competencia = $competencia;
     }
  		}
 

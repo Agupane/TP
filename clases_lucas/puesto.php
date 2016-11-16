@@ -18,7 +18,38 @@ class Puesto{
                 $this->cuestionarios=null;
 
             }
- 		
+            public function addPonderacion(ponderacionCompetencia $po){
+                $this->listaPonderacionCompetencia[]=$po;
+            }
+
+            public function getNombre(){
+                return $this->nombre;
+            }
+            //devuelve una empresa
+            public function getEmpresa(){
+                return $this->empresa;
+            }
+            public function getDescripcion(){
+                return $this->descripcion;
+            }
+            public function getCodigo(){
+                return $this->codigo;
+            }
+
+
+
+            public function mostrarListaPonderacionCompetencia (){
+                $lista = $this->listaPonderacionCompetencia;
+                echo count($lista) . "<br>";
+                for ($j=0; $j<count($lista);$j++ ){
+                    echo $lista[$j]->getNombreCompetencia() . "->" . $lista[$j]->getPonderacion();
+
+
+                }
+ 		     }
+            public function getListaPonderacionCompetencia(){
+                return $this->listaPonderacionCompetencia;
+            }
 }
 
 class PuestoDTO{
@@ -64,7 +95,7 @@ class PuestoDTO{
     /**
      * @return mixed
      */
-    public function getIdEmpresa()
+    public function getIdEmpresaDTO()
     {
         return $this->idEmpresa;
     }
@@ -110,7 +141,18 @@ class PuestoDTO{
     {
         $this->caracteristicasPuesto = $caracteristicasPuesto;
     }
- 		}
+
+    public function getCompetencia($indice){
+        $lista=$this->caracteristicasPuesto;
+        return $lista[$indice][0];
+
+    }
+
+    public function getPonderacion($indice){
+        $lista=$this->caracteristicasPuesto;
+        return $lista[$indice][1];
+    }
+}
 
 
 class GestorPuesto{
@@ -131,10 +173,28 @@ class GestorPuesto{
         if(!($this->ValidarNombre($unPuestoDTO->getNombre())) ){
             
         
-        
-        $empresa = $this->buscarEmpresa( $unPuestoDTO->getIdEmpresa());
+    //busco la instancia de empresa con el id en el dto
+        $empresa = $this->buscarEmpresa( $unPuestoDTO->getIdEmpresaDTO());
+    //creo el dto que despues voy a guardar
         $pu = new Puesto($unPuestoDTO->getCodigo(), $unPuestoDTO->getNombre(), $unPuestoDTO->getDescripcion(),$empresa);
-        echo "funciona hasta aca";
+
+    //creo las ponderaciones    
+    for($i=0; $i<count($unPuestoDTO->getCaracteristicasPuesto());$i++){
+
+        $competenciaDAO= new competenciaDAO;
+        $competencia=$competenciaDAO->getCompetencia($unPuestoDTO->getCompetencia($i));
+
+        $ponderacion=$unPuestoDTO->getPonderacion($i);
+
+        $po=new ponderacionCompetencia($competencia,$ponderacion);
+
+        $pu->addPonderacion($po);
+
+    }
+
+        $puestoDAO = new puestoDAO;
+        $puestoDAO->guardar($pu);
+
     }
 
 
@@ -190,6 +250,40 @@ class PuestoDAO{
         return($flag);
         
     }
-}
+
+    public function guardar(puesto $pu){
+        $conexion = new mysqli("localhost","root","","tp");
+        $codigo = $pu->getCodigo();
+        $nombre = $pu->getNombre();
+        $eliminado = false;
+        /*$empresa = $pu->getEmpresa();
+        $id=$empresa->getIdEmpresa();*/
+
+        $descripcion = $pu->getDescripcion();
+        echo $codigo;
+        echo $eliminado;
+        echo $nombre;
+        
+        //guarda puesto, el for guarda las ponderaciones
+        //mirar que la columna esta mal escrita en la base de datos 
+        $query="INSERT INTO puesto (codigo_puesto,nombre,descripcion,elimiando) VALUES ($codigo,$nombre,$descripcion,$eliminado,NULL) ";
+        $resultado = $conexion -> query($query);
+        if($resultado){
+            echo "llego al sql";
+        }
+            /*
+            $lista=$pu->getListaPonderacionCompetencia;
+             for ($j=0; $j<count($lista);$j++ ){
+                    echo $lista[$j]->getNombreCompetencia() . "->" . $lista[$j]->getPonderacion();
+
+
+                }*/
+             }
+
+
+
+
+
+    }
 
 ?>

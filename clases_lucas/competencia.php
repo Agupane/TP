@@ -4,7 +4,20 @@ class competencia{
  			private $nombre;
  			private $descripcion;
  			private $listaFactor;
- 		}
+ 		
+
+ 		public function __construct($codigo_competencia,$nombre,$descripcion){
+        	$this->codigo= $codigo_competencia;
+        	$this->nombre= $nombre;
+        	$this->descripcion=$descripcion;
+            $this->listaFactor=array();
+
+
+            }
+        public function getNombre(){
+        	return $this->nombre;
+        }
+}
 
 /*class GestorCompetencia{
 	public function 
@@ -22,6 +35,23 @@ class competenciaDAO{
 		else{
 		echo "Error";
 	}
+	}
+	public function getCompetencia($codigo_competencia){
+		//lo trae de forma lazy, no trae los factores
+	    $conexion = new mysqli("localhost","root","","tp");
+        $query="SELECT * FROM competencia WHERE codigo_competencia=$codigo_competencia";
+        $resultado = $conexion -> query($query);
+        $row = $resultado->fetch_assoc();
+        if($resultado){
+            $competencia=new competencia($row['codigo_competencia'],$row['nombre'],$row['descripcion']);
+        }
+        else{
+            return "Error";
+        }
+        $conexion->close();
+        return $competencia;    
+	
+
 	}
 }
 
@@ -44,7 +74,7 @@ class GestorCompetencia
   		$resultado=$competenciaDAO->lazyCompetencias();
   		return $resultado;
 
-  }  
+  }
 
 
 }

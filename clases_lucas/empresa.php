@@ -1,12 +1,21 @@
 <?php
 
 class Empresa{
+            private $id_empresa;
  			private $nombre;
  			private $direccion;
  			private $tipo;
  			private $cp;
+    public function setId($id_empresa){
+        $this->id_empresa=$id_empresa;
+    }
 
+     public function getIdEmpresa(){
 
+        /*$resultado= $this->id_empresa;
+        $id=(int)$resultado;*/
+        return $this->id_empresa;
+     }
      public function setNombre($nombre)
     {
         $this->nombre = $nombre;
@@ -54,6 +63,7 @@ class EmpresaDAO {
         $row = $resultado->fetch_assoc();
         if($resultado){
             $empresa=new empresa();
+            $empresa->setId($row['id_empresa']);
             $empresa->setNombre($row['nombre']);
             $empresa->setDireccion($row['direccion']);
             $empresa->setTipo($row['tipo']);
