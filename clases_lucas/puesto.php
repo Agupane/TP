@@ -126,13 +126,11 @@ class GestorPuesto{
     public function guardar(puestoDTO $unPuestoDTO){
          
           
-        if(($this->ValidarNulidadYTipo($unPuestoDTO) == 1) && !($this->ValidarNombre($unPuestoDTO->getNombre())) ){
+        if(($this->ValidarNulidadYTipo($unPuestoDTO)) && !($this->ValidarNombre($unPuestoDTO->getNombre())) ){
           
-        
-        
        $empresa = $this->buscarEmpresa( $unPuestoDTO->getIdEmpresa());
         $pu = new Puesto($unPuestoDTO->getCodigo(), $unPuestoDTO->getNombre(), $unPuestoDTO->getDescripcion(),$empresa);
-        
+
       
     }
 
@@ -163,8 +161,8 @@ class GestorPuesto{
             is_null($unDto->getDescripcion()) &&
             is_null($unDto->getempresa()) &&
             is_null($unDto->getCaracteristicasPuesto()))
-                ){ return 1;}
-    else return 0;
+                ){ return true;}
+    else return false;
 
 
     }
