@@ -124,17 +124,16 @@ class GestorPuesto{
     }
 
     public function guardar(puestoDTO $unPuestoDTO){
-        /* por ahora no funciona la validacion
-        if($this->ValidarNulidadYTipo($unDTO)){
-            echo "funciona nulidad y tipo";
-        }*/
-        if(!($this->ValidarNombre($unPuestoDTO->getNombre())) ){
-            
+         
+          
+        if(($this->ValidarNulidadYTipo($unPuestoDTO) == 1) && !($this->ValidarNombre($unPuestoDTO->getNombre())) ){
+          
         
         
-        $empresa = $this->buscarEmpresa( $unPuestoDTO->getIdEmpresa());
+       $empresa = $this->buscarEmpresa( $unPuestoDTO->getIdEmpresa());
         $pu = new Puesto($unPuestoDTO->getCodigo(), $unPuestoDTO->getNombre(), $unPuestoDTO->getDescripcion(),$empresa);
-        echo "funciona hasta aca";
+        
+      
     }
 
 
@@ -155,17 +154,17 @@ class GestorPuesto{
 	public function ValidarNulidadYTipo( PuestoDTO $unDto){
       	
         if  (is_string($unDto->getNombre()) &&
-                is_int($unDto->getCodigo()) &&
+                is_numeric($unDto->getCodigo()) &&
                 is_string($unDto->getDescripcion()) &&
-                is_int($unDto->getempresa()) &&
+                is_numeric($unDto->getIdEmpresa()) &&
                 is_array($unDto->getCaracteristicasPuesto()) &&
            !(is_null($unDto->getNombre()) &&
             is_null($unDto->getCodigo()) &&
             is_null($unDto->getDescripcion()) &&
             is_null($unDto->getempresa()) &&
             is_null($unDto->getCaracteristicasPuesto()))
-                ){ return true;}
-    else return false;
+                ){ return 1;}
+    else return 0;
 
 
     }
