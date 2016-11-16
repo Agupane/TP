@@ -9,7 +9,9 @@ class Empresa{
     public function setId($id_empresa){
         $this->id_empresa=$id_empresa;
     }
-
+    public function getNombre(){
+        return $this->nombre;
+    }      
      public function getIdEmpresa(){
 
         /*$resultado= $this->id_empresa;

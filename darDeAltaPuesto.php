@@ -26,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$unPuestoDTO->setIdEmpresa($_POST["empresa"]);
 	$unPuestoDTO->setDescripcion($_POST["descripcion"]);
 	
-
 	$i=0;
 
 

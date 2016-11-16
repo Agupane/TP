@@ -10,7 +10,7 @@ class Puesto{
 
             public function __construct($codigo,$nombre,$descripcion,$empresa){
                 $this->codigo= $codigo;
-                $this->nombre= $empresa;
+                $this->nombre= $nombre;
                 $this->eliminado = false;
                 $this->descripcion = $descripcion;
                 $this->empresa = $empresa;
@@ -174,7 +174,9 @@ class GestorPuesto{
             
         
     //busco la instancia de empresa con el id en el dto
-        $empresa = $this->buscarEmpresa( $unPuestoDTO->getIdEmpresaDTO());
+        $empresaDAO= new empresaDAO;
+        $empresa = $empresaDAO->buscarEmpresa( $unPuestoDTO->getIdEmpresaDTO());
+
     //creo el dto que despues voy a guardar
         $pu = new Puesto($unPuestoDTO->getCodigo(), $unPuestoDTO->getNombre(), $unPuestoDTO->getDescripcion(),$empresa);
 
@@ -192,8 +194,9 @@ class GestorPuesto{
 
     }
 
+
         $puestoDAO = new puestoDAO;
-        $puestoDAO->guardar($pu);
+        $puestoDAO->save($pu);
 
     }
 
@@ -207,10 +210,6 @@ class GestorPuesto{
 
 	}
 
-    public function buscarEmpresa($id_Empresa){
-    $empresaDAO = new empresaDAO;
-    $resultado = $empresaDAO->buscarEmpresa($id_Empresa);
-    return $resultado;}
 
 	public function ValidarNulidadYTipo( PuestoDTO $unDto){
         return(is_string($unDto->getNombre()) &&
@@ -251,25 +250,20 @@ class PuestoDAO{
         
     }
 
-    public function guardar(puesto $pu){
+    public function save(puesto $pu){
         $conexion = new mysqli("localhost","root","","tp");
         $codigo = $pu->getCodigo();
         $nombre = $pu->getNombre();
         $eliminado = false;
-        /*$empresa = $pu->getEmpresa();
-        $id=$empresa->getIdEmpresa();*/
-
         $descripcion = $pu->getDescripcion();
-        echo $codigo;
-        echo $eliminado;
-        echo $nombre;
+        $id_empresa = $pu->getEmpresa()->getIdEmpresa();
         
         //guarda puesto, el for guarda las ponderaciones
         //mirar que la columna esta mal escrita en la base de datos 
-        $query="INSERT INTO puesto (codigo_puesto,nombre,descripcion,elimiando) VALUES ($codigo,$nombre,$descripcion,$eliminado,NULL) ";
-        $resultado = $conexion -> query($query);
+        $query="INSERT INTO puesto VALUES ($codigo,$nombre,$descripcion,$eliminado,$id_empresa,NULL) ";
+        $resultado = $conexion->query($query);
         if($resultado){
-            echo "llego al sql";
+            echo "lo ingreso a la base de datos";
         }
             /*
             $lista=$pu->getListaPonderacionCompetencia;
