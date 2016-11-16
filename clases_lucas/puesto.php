@@ -128,7 +128,7 @@ class GestorPuesto{
         $this->ValidarNulidadYTipo($unDTO);
         $this->ValidarNombre($unDTO->getNombre());
         
-        $empresa = $this->getEmpersa( $unDTO->getIdEmpresa());
+        $empresa = $this->getEmpresa( $unDTO->getIdEmpresa());
         $pu = new Puesto($unPuestoDTO->getCodigo(), $unPuestoDTO->getNombre(), $unPuestoDTO->getDescripcion(),$empresa );
 
 
@@ -141,6 +141,11 @@ class GestorPuesto{
 	return $resultado;
 
 	}
+
+    public function buscarEmpresa($id_Empresa){
+    $empresaDAO = new empresaDAO;
+    $resultado = $empresaDAO->buscarEmpresa($id_Empresa);
+    return $resultado;}
 
 	public function ValidarNulidadYTipo( PuestoDTO $unDto){
         return($unDto->getNombre()->is_string() &&
@@ -166,13 +171,13 @@ class GestorPuesto{
 
 class PuestoDAO{
 
-    public function ValidarNombre(PuestoDTO $unDTO){
+    public function ValidarNombre($nombre){
         $flag = false;
         $base = new mysqli("localhost","root","","tp");
         $sql = "SELECT nombre FROM puesto";
         $resultado = $base->query($sql);
         while ($row = $resultado->fetch_assoc()){
-            if($row['nombre'] == $unDTO->getNombre()){
+            if($row['nombre'] == $nombre){
                 $flag = true;
             }
         }
@@ -181,4 +186,5 @@ class PuestoDAO{
         
     }
 }
+
 ?>
