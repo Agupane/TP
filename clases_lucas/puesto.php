@@ -153,17 +153,21 @@ class GestorPuesto{
     return $resultado;}
 
 	public function ValidarNulidadYTipo( PuestoDTO $unDto){
-        return(is_string($unDto->getNombre()) &&
+      	
+        if  (is_string($unDto->getNombre()) &&
                 is_int($unDto->getCodigo()) &&
                 is_string($unDto->getDescripcion()) &&
-                is_int($unDto->getIdEmpresa()) &&
+                is_int($unDto->getempresa()) &&
                 is_array($unDto->getCaracteristicasPuesto()) &&
            !(is_null($unDto->getNombre()) &&
             is_null($unDto->getCodigo()) &&
             is_null($unDto->getDescripcion()) &&
-            is_null($unDto->getIdEmpresa()) &&
+            is_null($unDto->getempresa()) &&
             is_null($unDto->getCaracteristicasPuesto()))
-                );
+                ){ return true;}
+    else return false;
+
+
     }
     public function ValidarNombre($nombre){
         $puestoDAO = new PuestoDAO();
