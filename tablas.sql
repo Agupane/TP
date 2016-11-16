@@ -53,7 +53,7 @@ descripcion varchar(140),
 Constraint pk_codigo_competencia primary key (codigo_competencia));
 
 --correcto
-create table ponderacionCompentencia (
+create table ponderacionCompetencia (
 codigo_competencia integer, 
 codigo_puesto integer, 
 ponderacion integer, 

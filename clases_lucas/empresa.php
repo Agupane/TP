@@ -46,7 +46,7 @@ class Empresa{
 class EmpresaDAO {
 	public function getAll(){
 		$conexion = new mysqli("localhost","root","","tp");
-		$query="select id_empresa,nombre from empresa";
+		$query="SELECT id_empresa,nombre from empresa";
 		$resultado = $conexion -> query($query);
 		if($resultado){
 			return $resultado;
@@ -60,7 +60,7 @@ class EmpresaDAO {
 	public function buscarEmpresa($id_empresa){
 
         $conexion = new mysqli("localhost","root","","tp");
-        $query="SELECT * FROM empresa WHERE id_empresa=$id_empresa";
+        $query="SELECT * FROM empresa WHERE id_empresa='$id_empresa'";
         $resultado = $conexion -> query($query);
         $row = $resultado->fetch_assoc();
         if($resultado){

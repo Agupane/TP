@@ -187,19 +187,17 @@ class GestorPuesto{
         $competencia=$competenciaDAO->getCompetencia($unPuestoDTO->getCompetencia($i));
 
         $ponderacion=$unPuestoDTO->getPonderacion($i);
-
         $po=new ponderacionCompetencia($competencia,$ponderacion);
 
         $pu->addPonderacion($po);
 
     }
 
-
         $puestoDAO = new puestoDAO;
         $puestoDAO->save($pu);
 
     }
-
+    else{echo "ya existe el nombre";}
 
     }
 
@@ -254,25 +252,28 @@ class PuestoDAO{
         $conexion = new mysqli("localhost","root","","tp");
         $codigo = $pu->getCodigo();
         $nombre = $pu->getNombre();
-        $eliminado = false;
+        $eliminado=0;
         $descripcion = $pu->getDescripcion();
         $id_empresa = $pu->getEmpresa()->getIdEmpresa();
-        
-        //guarda puesto, el for guarda las ponderaciones
+         //guarda puesto, el for guarda las ponderaciones
         //mirar que la columna esta mal escrita en la base de datos 
-        $query="INSERT INTO puesto VALUES ($codigo,$nombre,$descripcion,$eliminado,$id_empresa,NULL) ";
+        $query="INSERT INTO puesto (codigo_puesto, nombre,descripcion,eliminado,id_empresa) VALUES ('$codigo','$nombre','$descripcion','$eliminado','$id_empresa') ";
         $resultado = $conexion->query($query);
         if($resultado){
-            echo "lo ingreso a la base de datos";
+            $lista=$pu->getListaPonderacionCompetencia();
+            $PonderacionCompetenciaDAO= new PonderacionCompetenciaDAO;
+            for ($j=0; $j<count($lista);$j++ ){
+
+                $PonderacionCompetenciaDAO->save($pu->getCodigo(), $lista[$j]);
+
+
+            }
+            echo "lo ingreso el puesto a la base de datos";
+
         }
-            /*
-            $lista=$pu->getListaPonderacionCompetencia;
-             for ($j=0; $j<count($lista);$j++ ){
-                    echo $lista[$j]->getNombreCompetencia() . "->" . $lista[$j]->getPonderacion();
+        else {echo "no ingreso nada a la base de datos";}
 
-
-                }*/
-             }
+    }
 
 
 
