@@ -4,8 +4,6 @@ class Empresa{
  			private $nombre;
  			private $direccion;
  			private $tipo;
- 			private $localidad;
- 			private $pais;
  			private $cp;
 
 
@@ -22,14 +20,7 @@ class Empresa{
     {
         $this->tipo = $tipo;
     }
-         public function setLocalidad($localidad)
-    {
-        $this->localidad = $localidad;
-    }
-         public function setPais($pais)
-    {
-        $this->pais = $pais;
-    }
+
          public function setCp($cp)
     {
         $this->cp = $cp;
@@ -55,7 +46,7 @@ class EmpresaDAO {
 	}
 
 
-	public function getEmpresa($id_empresa){
+	public function buscarEmpresa($id_empresa){
 
         $conexion = new mysqli("localhost","root","","tp");
         $query="SELECT * FROM empresa WHERE id_empresa=$id_empresa";
@@ -65,8 +56,6 @@ class EmpresaDAO {
             $empresa=new empresa();
             $empresa->setNombre($row['nombre']);
             $empresa->setDireccion($row['direccion']);
-            $empresa->setLocalidad($row['localidad']);
-            $empresa->setPais($row['pais']);
             $empresa->setTipo($row['tipo']);
             $empresa->setCp($row['cp']);
 

@@ -1,5 +1,10 @@
 <?php 
 require ("clases_lucas/puesto.php");
+require ("connect_db.php");
+require ("clases_lucas/empresa.php");
+require ("clases_lucas/competencia.php");
+
+
 
 
 $competenciaPonderacion=array(); 
@@ -11,13 +16,13 @@ for ($j=0; $j<count($competenciaPonderacion);$j++ ){
 
 
 
-$codigo = $nombre = $empresa = $descripcion = $caracteristicasPuestos = "";
+$codigo = $nombre = $empresa = $descripcion = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	$unPuestoDTO = new PuestoDTO;
 	$unPuestoDTO->setCodigo($_POST["codigo"]);
-	$unPuestoDTO->setNombre($_POST["nombre"]);
-	$unPuestoDTO->setIdEmpresa($_POST["id_empresa"]);
+	$unPuestoDTO->setNombre($_POST["nombrePuesto"]);
+	$unPuestoDTO->setIdEmpresa($_POST["empresa"]);
 	$unPuestoDTO->setDescripcion($_POST["descripcion"]);
 	
 
@@ -37,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$unPuestoDTO->setCaracteristicasPuesto($competenciaPonderacion);
 
 
-	//$GestorPuesto = GestorPuesto::getInstancia();
-	//$GestorPuesto->guardar($unPuestoDTO);
+	$GestorPuesto = GestorPuesto::getInstancia();
+	$GestorPuesto->guardar($unPuestoDTO);
 	
 }
 

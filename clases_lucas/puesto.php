@@ -5,7 +5,7 @@ class Puesto{
  			private $eliminado;
  			private $empresa;
  			private $descripcion;
- 			private $listaponderacionCompetencia;
+ 			private $listaPonderacionCompetencia;
  			private $cuestionario;
 
             public function __construct($codigo,$nombre,$descripcion,$empresa){
@@ -14,7 +14,7 @@ class Puesto{
                 $this->eliminado = false;
                 $this->descripcion = $descripcion;
                 $this->empresa = $empresa;
-                $this->$listaponderacionCompetencia=null;
+                $this->listaPonderacionCompetencia=array();
                 $this->cuestionarios=null;
 
             }
@@ -66,7 +66,7 @@ class PuestoDTO{
      */
     public function getIdEmpresa()
     {
-        return $this->IdEmpresa;
+        return $this->idEmpresa;
     }
 
     /**
@@ -74,7 +74,7 @@ class PuestoDTO{
      */
     public function setIdEmpresa($empresa)
     {
-        $this->IdEmpresa = $empresa;
+        $this->idEmpresa = $empresa;
     }
 
 
@@ -123,14 +123,19 @@ class GestorPuesto{
         return self::$instancia;
     }
 
-    public function guardar(puestoDTO $unDTO){
-
-        $this->ValidarNulidadYTipo($unDTO);
-        $this->ValidarNombre($unDTO->getNombre());
+    public function guardar(puestoDTO $unPuestoDTO){
+        /* por ahora no funciona la validacion
+        if($this->ValidarNulidadYTipo($unDTO)){
+            echo "funciona nulidad y tipo";
+        }*/
+        if(!($this->ValidarNombre($unPuestoDTO->getNombre())) ){
+            
         
-        $empresa = $this->getEmpresa( $unDTO->getIdEmpresa());
-        $pu = new Puesto($unPuestoDTO->getCodigo(), $unPuestoDTO->getNombre(), $unPuestoDTO->getDescripcion(),$empresa );
-
+        
+        $empresa = $this->buscarEmpresa( $unPuestoDTO->getIdEmpresa());
+        $pu = new Puesto($unPuestoDTO->getCodigo(), $unPuestoDTO->getNombre(), $unPuestoDTO->getDescripcion(),$empresa);
+        echo "funciona hasta aca";
+    }
 
 
     }
@@ -148,21 +153,21 @@ class GestorPuesto{
     return $resultado;}
 
 	public function ValidarNulidadYTipo( PuestoDTO $unDto){
-        return($unDto->getNombre()->is_string() &&
-                $unDto->getCodigo()->is_int() &&
-                $unDto->getDescripcion()->is_string() &&
-                $unDto->getIdEmpresa()->is_int() &&
-                $unDto->getCaracteristicasPuesto()->is_string() &&
-           !($unDto->getNombre()->is_null() &&
-            $unDto->getCodigo()->is_null() &&
-            $unDto->getDescripcion()->is_null() &&
-            $unDto->getIdEmpresa()->is_null() &&
-            $unDto->getCaracteristicasPuesto()->is_null())
+        return(is_string($unDto->getNombre()) &&
+                is_int($unDto->getCodigo()) &&
+                is_string($unDto->getDescripcion()) &&
+                is_int($unDto->getIdEmpresa()) &&
+                is_array($unDto->getCaracteristicasPuesto()) &&
+           !(is_null($unDto->getNombre()) &&
+            is_null($unDto->getCodigo()) &&
+            is_null($unDto->getDescripcion()) &&
+            is_null($unDto->getIdEmpresa()) &&
+            is_null($unDto->getCaracteristicasPuesto()))
                 );
     }
-    public function ValidarNombre(PuestoDTO $unDTO){
-        $valido = new PuestoDAO();
-        return($valido->ValidarNombre($unDTO));
+    public function ValidarNombre($nombre){
+        $puestoDAO = new PuestoDAO();
+        return($puestoDAO->ValidarNombre($nombre));
         // retorna true si ya existe uno y false si no existe;
     }
 
