@@ -8,11 +8,37 @@ require ("clases_lucas/puesto.php");
 $GestorPuesto= GestorPuesto::getInstancia();
 $empresas = $GestorPuesto->getAllEmpresas();
 
+
 /*Ahora Busco todas las competencias para mostrar en una grilla*/
 
 $GestorPuesto=GestorPuesto::getInstancia();
 $puesto= $GestorPuesto->buscarPuestos();
 
+
+
+
+function buscarnombre($id_empresa){
+     $conexion = new mysqli("localhost","root","root","tp");
+        $query="SELECT * FROM empresa WHERE id_empresa='$id_empresa'";
+        $resultado = $conexion -> query($query);
+        $row = $resultado->fetch_assoc();
+        if($resultado){
+            $empresa=new empresa();
+            $empresa->setId($row['id_empresa']);
+            $empresa->setNombre($row['nombre']);
+            $empresa->setDireccion($row['direccion']);
+            $empresa->setTipo($row['tipo']);
+            $empresa->setCp($row['cp']);
+
+        }
+        else{
+            return "Error";
+        }
+        
+        return $empresa->getNombre();    
+
+    
+}
 
 ?>
 
@@ -29,7 +55,7 @@ $puesto= $GestorPuesto->buscarPuestos();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Datos personales</title>
+    <title>Gestionar Puestos</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -53,7 +79,7 @@ $puesto= $GestorPuesto->buscarPuestos();
 
 </head>
 
-<body id="page-top" class="index">
+
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -75,14 +101,11 @@ $puesto= $GestorPuesto->buscarPuestos();
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#"></a>
+                        <a class="page-scroll" href="#">Gestionar Puesto</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="">Noticias</a>
+                        <a class="page-scroll" href="">Perfil</a>
                     </li>
-                    <!--<li>
-                        <a class="page-scroll" href="#about">Campamento</a>
-                    </li>-->
                     <li>
                         <a class="page-scroll" href="cerrar_sesion.php">Cerrar Sesion</a>
                     </li>
@@ -92,22 +115,38 @@ $puesto= $GestorPuesto->buscarPuestos();
         <!-- /.container-fluid -->
     </nav>
    
+<section id="services" class="bg-alta-puesto">
+        <div class="container">
+            <div class="row">
+               <div class="text-left">
+                <div class="col-lg-2 col-md-offset-4">
+                    <h1>Gestionar Puestos</h1>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </section>
 
 <!-- Services Section -->
 
-<center>
-	<form action="darDeAltaPuesto.php" method="POST" enctype="multipart/form-data" onSubmit="return validation()">
-		<br><br><br><br><br><br>Codigo <input type="text" REQUIRED name="codigo" placeholder="Codigo..." value="" /> <br><br>
-		Nombre del Puesto <input type="text" REQUIRED name="nombrePuesto" placeholder="Nombre del Puesto..." value="" /> <br><br>
-		<br><br>
+<body id="page-top" class="index">
+
+  <br><div class="container">
+     <div class='col-md-4 col-md-offset-4'>
+            <div class="input-group">
+             <h2>Puestos o funciones a evaluar</h2>
+    <!--<form action="darDeAltaPuesto.php" method="POST" enctype="multipart/form-data" onSubmit="return validation()">-->
+		<br><br><h4>Código</h4><input class="form-control" type="text" name="codigo" placeholder="Código..." value="" /> <br><br>
+		<h4>Nombre del Puesto</h4> <input class="form-control" type="text" name="nombrePuesto" placeholder="Nombre del Puesto..." value="" /> <br><br>
+		<br>
 		<center>
-		Empresa <select name="empresa" class="form-control" placeholder=".col-xs-2">
-		<option value="0"> </option>
+		<h4>Empresa</h4><select name="empresa" class="form-control">
+		<option value="0"> - Empresa -</option>
 		<?php while($row=$empresas->fetch_assoc()){ ?>
             <option value="<?php echo $row['id_empresa']?>"><?php echo $row['nombre']?></option>
         <?php } ?>
-       </select><br><br>
-       	<button ><a href="#">Buscar</a></button> <button><a href="pantallaAltaPuesto.php">Nuevo</a></button>
+       </select><br><br><br>
+       	<button class="btn btn-primary active">Buscar</button> <a href="pantallaAltaPuesto.php"><button class="btn btn-primary active">Nuevo</button></a><br><br>
 
        <table class="table table-hover">
     <thead>
@@ -120,34 +159,28 @@ $puesto= $GestorPuesto->buscarPuestos();
     </thead>
     <tbody>
       <?php 
-        $row2 = $empresas->fetch_assoc();
+        
         while($row =$puesto->fetch_assoc()){ 
         	?>
         		
         	
         <tr>
          <td> <?php echo $row['codigo_puesto']; ?> </td>
-          <td> <?php echo $row2['nombre']; ?> </td>
-           <td> <?php for ($i=0; $i < count($row2); $i++) { 
-           			if($row['id_empresa'] == $row2['id_empresa']){
-           				echo $row2['nombre'];
+          <td> <?php echo $row['nombre']; ?> </td>
+           <td> <?php echo buscarnombre($row['id_empresa']);?> </td>
+            <td><input type="checkbox"></td>
 
-           			}
-           }
-
-           ?> </td>
-           <!--ver -->
-
-        <td><input type="checkbox" name="competencia[]" value="<?php echo $row['codigo_competencia']; ?>"></td>
+       
     
         </tr>
       <?php } ?>
        </tbody>
   </table>
 		<!--<input type="file" REQUIRED name="Imagen"/> <br><br>-->
-		</form>
-		<button>Modificar</button><button>Eliminar</button><button>Salir</button>
-	</center>
+		<!--</form>--><br><br>
+                <button class="btn btn-primary active">Modificar</button>   <button class="btn btn-primary active">Eliminar</button>   <button class="btn btn-primary active">Salir</button><br><br><br><br>
+        </div></div></div>
+
     
 <!-- jQuery -->
     <script src="js/jquery.js"></script>
