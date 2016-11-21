@@ -166,14 +166,10 @@ class GestorPuesto{
     }
 
     public function guardar(puestoDTO $unPuestoDTO){
-        /* por ahora no funciona la validacion
-        if($this->ValidarNulidadYTipo($unDTO)){
-            echo "funciona nulidad y tipo";
-        }*/
-        if(!($this->ValidarNombre($unPuestoDTO->getNombre())) ){
+       
+        if(($this->ValidarNulidadYTipo($unPuestoDTO)) && !($this->ValidarNombre($unPuestoDTO->getNombre())) ){
             
-        
-    //busco la instancia de empresa con el id en el dto
+           //busco la instancia de empresa con el id en el dto
         $empresaDAO= new empresaDAO;
         $empresa = $empresaDAO->buscarEmpresa( $unPuestoDTO->getIdEmpresaDTO());
 
@@ -210,22 +206,30 @@ class GestorPuesto{
 
 
 	public function ValidarNulidadYTipo( PuestoDTO $unDto){
-        return(is_string($unDto->getNombre()) &&
-                is_int($unDto->getCodigo()) &&
-                is_string($unDto->getDescripcion()) &&
-                is_int($unDto->getIdEmpresa()) &&
-                is_array($unDto->getCaracteristicasPuesto()) &&
-           !(is_null($unDto->getNombre()) &&
-            is_null($unDto->getCodigo()) &&
-            is_null($unDto->getDescripcion()) &&
-            is_null($unDto->getIdEmpresa()) &&
-            is_null($unDto->getCaracteristicasPuesto()))
-                );
+        if((is_string($unDto->getNombre()) &&
+                        is_numeric($unDto->getCodigo()) &&
+                        is_string($unDto->getDescripcion()) &&
+                        is_numeric($unDto->getIdEmpresaDTO()) &&
+                        is_array($unDto->getCaracteristicasPuesto()) &&
+                   !(is_null($unDto->getNombre()) &&
+                    is_null($unDto->getCodigo()) &&
+                    is_null($unDto->getDescripcion()) &&
+                    is_null($unDto->getIdEmpresaDTO()) &&
+                    is_null($unDto->getCaracteristicasPuesto()))
+                        )
+                ){return true;}
+            else return false;
     }
     public function ValidarNombre($nombre){
         $puestoDAO = new PuestoDAO();
         return($puestoDAO->ValidarNombre($nombre));
         // retorna true si ya existe uno y false si no existe;
+    }
+
+    public function buscarPuestos(){
+        $puestoDAO = new puestoDAO;
+        $resultado = $puestoDAO->getAll();
+        return $resultado;
     }
 
 
@@ -273,12 +277,28 @@ class PuestoDAO{
         }
         else {echo "no ingreso nada a la base de datos";}
 
+<<<<<<<
+    }
+=======
+                $PonderacionCompetenciaDAO->save($pu->getCodigo(), $lista[$j]);
+>>>>>>>
+
+
+            }
+            echo "lo ingreso el puesto a la base de datos";
+
+        }
+        else {echo "no ingreso nada a la base de datos";}
+
     }
 
-
-
-
-
+    public function getAll(){
+        $conexion = new mysqli("localhost","root","","tp");
+        $query="SELECT codigo_puesto,nombre,id_empresa from puesto";
+        $resultado = $conexion -> query($query);
+        if($resultado){
+            return $resultado;
+    }
     }
 
 ?>

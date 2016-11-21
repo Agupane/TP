@@ -139,7 +139,7 @@ $competencias= $GestorCompetencia->buscarCompetencias();
        </tbody>
   </table>
 		<!--<input type="file" REQUIRED name="Imagen"/> <br><br>-->
-		<input type="submit" value="Aceptar" />
+		<input type="submit" value="Aceptar" /><button><a href="gestionarPuestos.php">Cancelar</a></button>
 	</form>
 	</center>
     

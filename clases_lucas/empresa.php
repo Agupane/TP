@@ -42,6 +42,16 @@ class Empresa{
 
 
 }
+class GestorEmpresa{
+
+  /*  public function buscaNombre($num){
+        $GestorPuesto= GestorPuesto::getInstancia();
+        $empresas = $GestorPuesto->getAllEmpresas();
+        for ($i=0; $i < $empresas.sizeof(); $i++) { 
+            # code...
+        }
+    }*/
+}
 
 class EmpresaDAO {
 	public function getAll(){

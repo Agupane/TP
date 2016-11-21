@@ -64,17 +64,65 @@ h6 {
     background-color: #f7f7f7;
 }
 
+.bg-alta-puesto {
+    text-align: center;
+    color: #fff;
+    background-attachment: fixed;
+    background-image: url(../img/alta_puesto.jpg);
+    background-position: center center;
+    background-repeat: none;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    padding-bottom: 50px;
+    padding-top: 90px;
+    /*background-color: #3498db;*/
+}
+
+.bg-busca-acampante {
+    text-align: center;
+    color: #fff;
+    background-attachment: fixed;
+    background-image: url(../img/busca_acampante.jpg);
+    background-position: center center;
+    background-repeat: none;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    padding-bottom: 50px;
+    padding-top: 90px;
+    /*background-color: #3498db;*/
+}
+
+.bg-error-logueo {
+    text-align: center;
+    color: #fff;
+    background-attachment: fixed;
+    background-image: url(../img/error_logueo.jpg);
+    background-position: center center;
+    background-repeat: none;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    padding-bottom: 50px;
+    padding-top: 90px;
+    /*background-color: #3498db;*/
+}
+
 .bg-darkest-gray {
     background-color: #222;
 }
 
 .btn-primary {
-    border-color: #337ab7;
+    border-color: #fc1257;
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #fff;
-    background-color: #337ab7;
+    background-color: #fc1257;
 }
 
 .btn-primary:hover,
@@ -82,9 +130,9 @@ h6 {
 .btn-primary:active,
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
-    border-color: #f6bf01;
+    border-color: #00045a;
     color: #fff;
-    background-color: #fec503;
+    background-color: #00045a;
 }
 
 .btn-primary:active,
@@ -171,7 +219,7 @@ fieldset[disabled] .btn-xl.active {
 
 .navbar-default {                   /* COLOR NAV-BAR / PANTALLA PEQUEÑA */
     border-color: transparent;
-    background-color: #2e5caa;
+    background-color: #ff3f78;
 }
 
 .navbar-default .navbar-brand {    /* ES EL NAV-BAR BRAND, ELIMINAR */
@@ -196,7 +244,7 @@ fieldset[disabled] .btn-xl.active {
 }
 
 .navbar-default .navbar-toggle .icon-bar {    /* COLORES 3 LINEAS TOGGLE */
-    background-color: #337ab7;
+    background-color: #ff3f78;
 }
 
 .navbar-default .navbar-toggle:hover,
@@ -254,7 +302,7 @@ fieldset[disabled] .btn-xl.active {
 
     .navbar-default.navbar-shrink {  /* COLOR NAV-BAR / PANTALLA GRANDE */
         padding: 10px 0;
-        background-color: #2e5caa;
+        background-color: #00045a;
     }
 
     .navbar-default.navbar-shrink .navbar-brand {
@@ -329,7 +377,7 @@ section h2.section-heading {
     margin-top: 0;
     margin-bottom: 15px;
     font-size: 40px;
-    color:#0194da;
+    color:#ff3f78;
 }
 
 section h3.section-subheading {
@@ -350,6 +398,13 @@ section h3.section-subheading {
 .service-heading {
     margin: 15px 0;
     text-transform: none;
+}
+
+.informes-heading {
+    margin: 15px 0;
+    text-transform: none;
+    background-attachment: fixed;
+    background-image: url(../img/img_principal.jpg);
 }
 
 #portfolio .portfolio-item {
@@ -912,6 +967,55 @@ body {
     overflow: auto;
     border:none;
 }
+
+.table a
+{
+    display:block;
+    text-decoration:none;
+}
+
+.tarjeta {
+    display:block;
+    background-color: #fff;
+    padding-bottom: 20px;
+    padding-top: 20px; 
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.tarjetaAlta {
+    display:block;
+    background-color: #fff;
+    margin-top: 15px;
+    padding-bottom: 15px;
+}
+.tarjetaBusq {
+    display:block;
+    background-color: #fff;
+    margin-top: 15px;
+    padding-bottom: 15px;
+    width: 500px;
+}
+.tarjetaPerfil {
+    display:block;
+    background-color: #fff;
+    padding-bottom: 20px;
+    padding-top: 20px; 
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+.imgPerfil{
+    /*position: absolute; 
+    right: 525px; 
+    top: 80px;
+     z-index: 2;*/
+}
+.imgFondillo{
+    /*position: absolute; 
+    right: 518px; 
+    top: 74px;
+     z-index: 2;*/
+}
 .color-titulo{
-    color: #337ab7;
+    color: #fc1257;
 }
