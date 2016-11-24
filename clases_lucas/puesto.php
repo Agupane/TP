@@ -193,7 +193,7 @@ class GestorPuesto{
         $puestoDAO->save($pu);
 
     }
-    else{echo "ya existe el nombre";}
+    else{header('Location:fracaso.php');}
 
     }
 
@@ -226,6 +226,12 @@ class GestorPuesto{
         // retorna true si ya existe uno y false si no existe;
     }
 
+    public function buscarNombreEmpresa($id_empresa){
+        $empresaDAO= new empresaDAO;
+        $empresa = $empresaDAO->buscarEmpresa( $id_empresa);
+        return $empresa->getNombre();
+
+    }
     public function buscarPuestos(){
         $puestoDAO = new puestoDAO;
         $resultado = $puestoDAO->getAll();
@@ -272,23 +278,13 @@ class PuestoDAO{
 
 
             }
-            echo "lo ingreso el puesto a la base de datos";
+            header('Location:exito.php');
+            //echo "lo ingreso el puesto a la base de datos";
 
         }
-        else {echo "no ingreso nada a la base de datos";}
-
-<<<<<<<
-    }
-=======
-                $PonderacionCompetenciaDAO->save($pu->getCodigo(), $lista[$j]);
->>>>>>>
-
-
-            }
-            echo "lo ingreso el puesto a la base de datos";
-
+        else {//echo "no ingreso nada a la base de datos"
+            header('Location:fracaso.php');
         }
-        else {echo "no ingreso nada a la base de datos";}
 
     }
 
@@ -299,6 +295,13 @@ class PuestoDAO{
         if($resultado){
             return $resultado;
     }
+        else{
+        echo "Error";
+           }
+    }
+
+
+
     }
 
 ?>
