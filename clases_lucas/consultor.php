@@ -79,23 +79,8 @@ class ConsultorDTO
         $this->contra = $contra;
     }
 	private $contra;
-    private  $nombre;
 
-    /**
-     * @return mixed
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
 
-    /**
-     * @param mixed $nombre
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-    }
 
 	public function getUsuario(){
 		return $this->usuario;

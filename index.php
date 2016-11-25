@@ -98,7 +98,7 @@ require ("clases_lucas/consultor.php");
                                 <h4 class="color-titulo"><strong>Ingresar cuenta</strong></h4>
                             </div><!--final modal-header-->
                             <div class="modal-body">
-                                <form method="post" action="validar.php" role="form" id="form_id" >
+                                <form method="post" action="IngresarConsultor.php" role="form" id="form_id" >
                                     <div class="container" style="margin-top:1px"></div>      
                     <div class="panel-body">
                             <fieldset>

@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4b9782a-ef35-4dbe-93ac-f48e169d3e2b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/TP.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clases_lucas/puesto.php" afterPath="$PROJECT_DIR$/clases_lucas/puesto.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IngresarConsultor.php" afterPath="$PROJECT_DIR$/IngresarConsultor.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clases_lucas/GestorAutenticar.php" afterPath="$PROJECT_DIR$/clases_lucas/GestorAutenticar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clases_lucas/consultor.php" afterPath="$PROJECT_DIR$/clases_lucas/consultor.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
     </list>
     <ignored path="TP.iws" />
@@ -30,8 +30,8 @@
       <file leaf-file-name="GestorAutenticar.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/clases_lucas/GestorAutenticar.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" column="65" selection-start-line="35" selection-start-column="65" selection-end-line="35" selection-end-column="65" />
+            <state relative-caret-position="315">
+              <caret line="21" column="66" selection-start-line="21" selection-start-column="66" selection-end-line="21" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -49,24 +49,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="consultor.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="consultor.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/clases_lucas/consultor.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
+            <state relative-caret-position="1206">
+              <caret line="110" column="9" selection-start-line="110" selection-start-column="9" selection-end-line="110" selection-end-column="9" />
               <folding>
-                <marker date="1480103591000" expanded="true" signature="1935:1981" ph="SELECT * FRO... consultor" />
+                <marker date="1480106313000" expanded="true" signature="1674:1720" ph="SELECT * FRO... consultor" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
-              <folding />
+            <state relative-caret-position="63">
+              <caret line="100" column="77" selection-start-line="100" selection-start-column="77" selection-end-line="100" selection-end-column="77" />
+              <folding>
+                <element signature="n#div#0;n#div#0;n#div#1;n#fieldset#0;n#div#1;n#form#0;n#div#1;n#div#0;n#div#0;n#div#3;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#1;n#div#0;n#div#1;n#fieldset#0;n#div#1;n#form#0;n#div#1;n#div#0;n#div#0;n#div#3;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -84,8 +87,8 @@
       <file leaf-file-name="IngresarConsultor.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IngresarConsultor.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+            <state relative-caret-position="420">
+              <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
               <folding>
                 <element signature="e#6#93#0#PHP" expanded="true" />
               </folding>
@@ -124,10 +127,10 @@
         <option value="$PROJECT_DIR$/clases_lucas/Persona.php" />
         <option value="$PROJECT_DIR$/clases_lucas/LDAP.php" />
         <option value="$PROJECT_DIR$/clases_lucas/puesto.php" />
-        <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/clases_lucas/GestorAutenticar.php" />
-        <option value="$PROJECT_DIR$/IngresarConsultor.php" />
         <option value="$PROJECT_DIR$/clases_lucas/consultor.php" />
+        <option value="$PROJECT_DIR$/IngresarConsultor.php" />
+        <option value="$PROJECT_DIR$/clases_lucas/GestorAutenticar.php" />
+        <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
   </component>
@@ -268,12 +271,12 @@
       <option name="presentableId" value="Default" />
       <updated>1480016878271</updated>
       <workItem from="1480016882285" duration="4627000" />
-      <workItem from="1480092044332" duration="7851000" />
+      <workItem from="1480092044332" duration="9234000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12478000" />
+    <option name="totallyTimeSpent" value="13861000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -350,9 +353,9 @@
           <folding>
             <element signature="n#Puesto#0;n#!!top" expanded="false" />
             <element signature="n#PuestoDTO#0;n#!!top" expanded="false" />
-            <marker date="1480013911000" expanded="true" signature="6434:6459" ph="SELECT nombr... puesto" />
-            <marker date="1480013911000" expanded="true" signature="7151:7297" ph="INSERT INTO puesto... " />
-            <marker date="1480013911000" expanded="true" signature="7987:8037" ph="SELECT codig... puesto" />
+            <marker date="1480104404000" expanded="true" signature="6434:6459" ph="SELECT nombr... puesto" />
+            <marker date="1480104404000" expanded="true" signature="7151:7297" ph="INSERT INTO puesto... " />
+            <marker date="1480104404000" expanded="true" signature="10184:10234" ph="SELECT codig... puesto" />
           </folding>
         </state>
       </provider>
@@ -362,7 +365,7 @@
         <state relative-caret-position="1320">
           <caret line="88" column="40" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="40" />
           <folding>
-            <marker date="1480103591000" expanded="true" signature="1935:1981" ph="SELECT * FRO... consultor" />
+            <marker date="1480106313000" expanded="true" signature="1674:1720" ph="SELECT * FRO... consultor" />
           </folding>
         </state>
       </provider>
@@ -372,8 +375,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1480008866000" expanded="true" signature="897:934" ph="SELECT id_em... empresa" />
-            <marker date="1480008866000" expanded="true" signature="1184:1236" ph="SELECT * FRO... empresa" />
+            <marker date="1480103744000" expanded="true" signature="897:956" ph="SELECT id_em... empresa" />
+            <marker date="1480103744000" expanded="true" signature="1206:1258" ph="SELECT * FRO... empresa" />
           </folding>
         </state>
       </provider>
@@ -403,9 +406,9 @@
           <folding>
             <element signature="n#Puesto#0;n#!!top" expanded="false" />
             <element signature="n#PuestoDTO#0;n#!!top" expanded="false" />
-            <marker date="1480013911000" expanded="true" signature="6434:6459" ph="SELECT nombr... puesto" />
-            <marker date="1480013911000" expanded="true" signature="7151:7297" ph="INSERT INTO puesto... " />
-            <marker date="1480013911000" expanded="true" signature="7987:8037" ph="SELECT codig... puesto" />
+            <marker date="1480104404000" expanded="true" signature="6434:6459" ph="SELECT nombr... puesto" />
+            <marker date="1480104404000" expanded="true" signature="7151:7297" ph="INSERT INTO puesto... " />
+            <marker date="1480104404000" expanded="true" signature="10184:10234" ph="SELECT codig... puesto" />
           </folding>
         </state>
       </provider>
@@ -415,8 +418,34 @@
         <state relative-caret-position="365">
           <caret line="64" column="41" selection-start-line="64" selection-start-column="41" selection-end-line="64" selection-end-column="41" />
           <folding>
-            <marker date="1480008866000" expanded="true" signature="897:934" ph="SELECT id_em... empresa" />
-            <marker date="1480008866000" expanded="true" signature="1184:1236" ph="SELECT * FRO... empresa" />
+            <marker date="1480103744000" expanded="true" signature="897:956" ph="SELECT id_em... empresa" />
+            <marker date="1480103744000" expanded="true" signature="1206:1258" ph="SELECT * FRO... empresa" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pantallaAltaPuesto.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-174">
+          <caret line="111" column="6" selection-start-line="111" selection-start-column="6" selection-end-line="111" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clases_lucas/Persona.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clases_lucas/consultor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1206">
+          <caret line="110" column="9" selection-start-line="110" selection-start-column="9" selection-end-line="110" selection-end-column="9" />
+          <folding>
+            <marker date="1480106313000" expanded="true" signature="1674:1720" ph="SELECT * FRO... consultor" />
           </folding>
         </state>
       </provider>
@@ -433,16 +462,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/clases_lucas/GestorAutenticar.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="65" selection-start-line="35" selection-start-column="65" selection-end-line="35" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pantallaAltaPuesto.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-174">
-          <caret line="111" column="6" selection-start-line="111" selection-start-column="6" selection-end-line="111" selection-end-column="6" />
+        <state relative-caret-position="315">
+          <caret line="21" column="66" selection-start-line="21" selection-start-column="66" selection-end-line="21" selection-end-column="66" />
           <folding />
         </state>
       </provider>
@@ -455,38 +476,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clases_lucas/Persona.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/IngresarConsultor.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+        <state relative-caret-position="420">
+          <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
           <folding>
             <element signature="e#6#93#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clases_lucas/consultor.php">
+    <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
+        <state relative-caret-position="63">
+          <caret line="100" column="77" selection-start-line="100" selection-start-column="77" selection-end-line="100" selection-end-column="77" />
           <folding>
-            <marker date="1480103591000" expanded="true" signature="1935:1981" ph="SELECT * FRO... consultor" />
+            <element signature="n#div#0;n#div#0;n#div#1;n#fieldset#0;n#div#1;n#form#0;n#div#1;n#div#0;n#div#0;n#div#3;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#0;n#div#1;n#fieldset#0;n#div#1;n#form#0;n#div#1;n#div#0;n#div#0;n#div#3;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
