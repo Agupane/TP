@@ -53,11 +53,7 @@
  			private $elegido;
  			private $preguntaCopia;
  		}
- 		class RegistroAuditoria{
- 			private $fecha;
- 			private $hora;
- 			private $objetoBorrado;
- 		}
+
  		class Persona{
  			protected $apellido;
  			protected $nombre;
