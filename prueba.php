@@ -39,7 +39,7 @@ $name = $email = $gender = $comment = $website = "";
   Nombre del Puesto <input type="text" REQUIRED name="nombrePuesto" placeholder="Nombre del Puesto..." value="" /> <br><br>
   Descripcion <textarea class="form-control" REQUIRED name="descripcion" rows="5" cols="40" placeholder="Descripcion..." value="" /></textarea> <br>
     
-
+  <?php date_default_timezone_set('America/Argentina/Buenos_Aires'); echo time(); ?>
 
   <br><br>
   Gender:

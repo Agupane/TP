@@ -3,6 +3,7 @@ require ("connect_db.php");
 require ("clases_lucas/empresa.php");
 require ("clases_lucas/competencia.php");
 require ("clases_lucas/puesto.php");
+session_start();
 
 /*cargo todas las empresas para mostrar luego en el combobox*/
 $GestorPuesto= GestorPuesto::getInstancia();

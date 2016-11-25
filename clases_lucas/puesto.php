@@ -4,6 +4,7 @@ class Puesto{
  			private $nombre;
  			private $eliminado;
  			private $empresa;
+           /* private $enUso; */
  			private $descripcion;
  			private $listaPonderacionCompetencia;
  			private $cuestionario;
@@ -36,7 +37,9 @@ class Puesto{
                 return $this->codigo;
             }
 
-
+            public function enUso(){
+                return (empty($this->cuestionarios));
+            }
 
             public function mostrarListaPonderacionCompetencia (){
                 $lista = $this->listaPonderacionCompetencia;
@@ -197,6 +200,17 @@ class GestorPuesto{
 
     }
 
+    public function eliminarPuesto($codigo_puesto,$id_consultor){
+        $puesto=$this->getPuesto($codigo_puesto);
+       if(!($puesto->enUso())) {
+            date_default_timezone_set('America/Argentina/Buenos_Aires'); 
+            $registroAuditoria= new RegistroAuditoria($puesto,date('Y-m-d'),date(' H:i:s A '),$id_consultor);
+
+
+       }
+
+
+    }
 	public function getAllEmpresas(){
 	$empresaDAO = new empresaDAO;
 	$resultado = $empresaDAO->getAll();
@@ -249,6 +263,22 @@ class GestorPuesto{
 }
 
 class PuestoDAO{
+
+    public function getPuesto ($codigo_puesto){
+        $conexion= new mysqli("localhost","root","","tp");
+        $sql= "SELECT * FROM puesto where codigo_puesto='$codigo_puesto'"; 
+        $resultado=$conexion->query($sql);
+        if($resultado->num_rows()==1){
+            $row=$resultado->fetch_assoc();
+            $puesto= new Puesto($row["codigo_puesto"],$row["nombre"],$row["descripcion"],$row["id_empresa"]);
+            $cuestionarioDAO=new cuestionarioDAO;
+            $cuestionarios= $cuestionarioDAO->buscarCuestionarios($codigo_puesto);
+            $puesto->setCuestionarios($cuestionarios);
+
+        }
+        $conexion->close();
+        return $puesto; 
+    }
 
     public function ValidarNombre($nombre){
         $flag = false;
