@@ -1,3 +1,12 @@
+<?php
+require ("connect_db.php");
+require ("clases_lucas/LDAP.php");
+require ("clases_lucas/GestorAutenticar.php");
+require ("clases_lucas/consultor.php");
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

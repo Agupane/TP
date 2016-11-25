@@ -176,10 +176,12 @@ class GestorPuesto{
     //creo el dto que despues voy a guardar
         $pu = new Puesto($unPuestoDTO->getCodigo(), $unPuestoDTO->getNombre(), $unPuestoDTO->getDescripcion(),$empresa);
 
+
+        $competenciaDAO= new competenciaDAO;
     //creo las ponderaciones    
     for($i=0; $i<count($unPuestoDTO->getCaracteristicasPuesto());$i++){
 
-        $competenciaDAO= new competenciaDAO;
+        
         $competencia=$competenciaDAO->getCompetencia($unPuestoDTO->getCompetencia($i));
 
         $ponderacion=$unPuestoDTO->getPonderacion($i);
