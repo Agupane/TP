@@ -14,7 +14,9 @@ $empresas = $GestorPuesto->getAllEmpresas();
 $GestorPuesto=GestorPuesto::getInstancia();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $puesto= $GestorPuesto->buscarPuestos();
+
+   $puesto = $GestorPuesto->buscarContiene($_POST["codigo"],$_POST["nombrePuesto"],$_POST["empresa"]); 
+
 }
 
 
@@ -108,12 +110,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- Services Section -->
 
 <body id="page-top" class="index">
-
+  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="POST" enctype="multipart/form-data" onSubmit="return validation()">
   <br><div class="container">
      <div class='col-md-4 col-md-offset-4'>
-            <div class="input-group">
+            <!--<div class="input-group">-->
              <h2>Puestos o funciones a evaluar</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="POST" enctype="multipart/form-data" onSubmit="return validation()">
+  
 		<br><br><h4>Código</h4><input class="form-control" type="text" name="codigo" placeholder="Código..." value="" /> <br><br>
 		<h4>Nombre del Puesto</h4> <input class="form-control" type="text" name="nombrePuesto" placeholder="Nombre del Puesto..." value="" /> <br><br>
 		<br>
@@ -124,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="<?php echo $rowEmpresas['id_empresa']?>"><?php echo $rowEmpresas['nombre']?></option>
         <?php } ?>
        </select><br><br><br>
-       	<input class="btn btn-primary active" type="submit" value="Buscar" /> </form> <a href="pantallaAltaPuesto.php"><button class="btn btn-primary active">Nuevo</button></a><br><br> 
+       	<input class="btn btn-primary active" type="submit" value="Buscar" /> </form> <a href="pantallaAltaPuesto.php"> <button class="btn btn-primary active">Nuevo</button></a><br><br> 
 
 
        <table class="table table-hover">
@@ -139,27 +141,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <tbody>
       <?php 
         if($_SERVER["REQUEST_METHOD"] == "POST"){
-        while($rowPuesto=$puesto->fetch_assoc()){ 
+        for ($i=0;$i<count($puesto); $i++) {
         	?>
-        		
-        	
         <tr>
-         <td> <?php echo $rowPuesto['codigo_puesto']; ?> </td>
-          <td> <?php echo $rowPuesto['nombre']; ?> </td>
-           <td> <?php echo $GestorPuesto->buscarNombreEmpresa($rowPuesto['id_empresa']);?> </td>
-            <td><input type="checkbox"></td>
-
-       
-    
+         <td> <?php echo $puesto[$i]->getCodigo(); ?> </td>
+          <td> <?php echo $puesto[$i]->getNombre(); ?> </td>
+           <td> <?php echo $GestorPuesto->buscarNombreEmpresa($puesto[$i]->getIdEmpresaDTO());?> </td>
+            <td><input type="radio" name="optradio[]" value="<?php $puesto[$i]->getCodigo(); ?>"></td>    
         </tr>
       <?php } }?>
        </tbody>
   </table>
 		<!--<input type="file" REQUIRED name="Imagen"/> <br><br>-->
 		<!--</form>--><br><br>
-                <button class="btn btn-primary active">Modificar</button>   <button class="btn btn-primary active">Eliminar</button>  <a href="index.php"> <button class="btn btn-primary active">Salir</button></a><br><br><br><br>
+                <a href="modificar.php?id=optradio[]"><button class="btn btn-primary active">Modificar</button></a>   <button class="btn btn-primary active">Eliminar</button>  <a href="index.php"> <button class="btn btn-primary active">Salir</button></a><br><br><br><br>
         </div></div></div>
-
+    
     
 <!-- jQuery -->
     <script src="js/jquery.js"></script>

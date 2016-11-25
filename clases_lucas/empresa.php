@@ -46,7 +46,7 @@ class Empresa{
 class EmpresaDAO {
 	public function getAll(){
 		$conexion = new mysqli("localhost","root","","tp");
-		$query="SELECT id_empresa,nombre from empresa";
+		$query="SELECT id_empresa,nombre  from empresa order by nombre asc ";
 		$resultado = $conexion -> query($query);
 		if($resultado){
 			return $resultado;

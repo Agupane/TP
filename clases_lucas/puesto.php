@@ -228,6 +228,13 @@ class GestorPuesto{
         // retorna true si ya existe uno y false si no existe;
     }
 
+    public function buscarContiene ($codigo,$nombre,$id_empresa){
+
+        $puestoDAO= new PuestoDAO; 
+        $resultado= $puestoDAO->buscarContiene($codigo,$nombre,$id_empresa);
+        return $resultado;
+
+    }
     public function buscarNombreEmpresa($id_empresa){
         $empresaDAO= new empresaDAO;
         $empresa = $empresaDAO->buscarEmpresa( $id_empresa);
@@ -267,7 +274,7 @@ class PuestoDAO{
         $eliminado=0;
         $descripcion = $pu->getDescripcion();
         $id_empresa = $pu->getEmpresa()->getIdEmpresa();
-         //guarda puesto, el for guarda las ponderaciones
+        //guarda puesto, el for guarda las ponderaciones
         //mirar que la columna esta mal escrita en la base de datos 
         $query="INSERT INTO puesto (codigo_puesto, nombre,descripcion,eliminado,id_empresa) VALUES ('$codigo','$nombre','$descripcion','$eliminado','$id_empresa') ";
         $resultado = $conexion->query($query);
@@ -290,6 +297,27 @@ class PuestoDAO{
 
     }
 
+    public function buscarContiene($codigo,$nombre,$id_empresa){
+        $resultado= array(); 
+        if($id_empresa=="0"){$id_empresa="";}
+        $conexion = new mysqli("localhost","root","","tp");
+        $query= "SELECT codigo_puesto, nombre,id_empresa FROM puesto WHERE codigo_puesto like '%$codigo%' and nombre like '%$nombre%' and id_empresa like '%$id_empresa%'"; 
+        $resultadoQuery= $conexion->query($query);
+        while ($row=$resultadoQuery->fetch_assoc()){
+            $puestoDTO = new PuestoDTO;
+            $puestoDTO->setNombre($row["nombre"]);
+            /*echo $puestoDTO->getNombre();*/
+            $puestoDTO->setCodigo($row["codigo_puesto"]);
+            $puestoDTO->setIdEmpresa($row["id_empresa"]);
+            array_push($resultado, $puestoDTO);
+
+
+
+}
+
+     return $resultado; 
+
+    }
     public function getAll(){
         $conexion = new mysqli("localhost","root","","tp");
         $query="SELECT codigo_puesto,nombre,id_empresa from puesto";
