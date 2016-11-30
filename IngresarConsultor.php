@@ -25,12 +25,11 @@ $nombre = $contrase= "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $unConsultorDTO = new ConsultorDTO();
-    $unConsultorDTO->setNombre($_POST["usuario"]);
+    $unConsultorDTO->setUsuario($_POST["usuario"]);
     $unConsultorDTO->setContra($_POST["password"]);
-    $unConsultorDTO->setUsuario(null);
 
 
     $GestorAutenticar = GestorAuntenticar::getInstancia();
-    $GestorAutenticar->Ingresar($unPuestoDTO);
+    $GestorAutenticar->Ingresar($unConsultorDTO);
 
 }

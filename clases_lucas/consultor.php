@@ -80,23 +80,8 @@ class ConsultorDTO
         $this->contra = $contra;
     }
 	private $contra;
-    private  $nombre;
 
-    /**
-     * @return mixed
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
 
-    /**
-     * @param mixed $nombre
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-    }
 
 	public function getUsuario(){
 		return $this->usuario;
@@ -142,21 +127,14 @@ class ConsultorDAO
         $conexion = new mysqli("localhost","root","","tp");
         $query="SELECT * FROM consultor WHERE nombre='$nombre'";
         $resultado = $conexion -> query($query);
-        $row = $resultado->fetch_assoc();
-        if($resultado){
-            $consultor = new Consultor();
-            $consultor->setId($row['id_consultor']);
-            $consultor->setApellido($row['apellido']);
-            $consultor->setNombre($row['nombre']);
-            $consultor->setDoc($row['num_dni']);
-            $consultor->setEmail($row['email']);
 
+        if($resultado){
+           return true;
         }
         else{
             return "Error";
         }
-        $conexion->close();        
-        return $consultor;
+        $conexion->close();
 
     }
 }
