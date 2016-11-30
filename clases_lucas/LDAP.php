@@ -6,7 +6,7 @@
  * Date: 11/25/16
  * Time: 14:06
  */
-class LDAP
+class GestorLDAP
 {
     public function ingresar($nombre, $pass){
 
