@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- Services Section -->
 
 <body id="page-top" class="index">
-  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="POST" enctype="multipart/form-data" onSubmit="return validation()">
+  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
   <br><div class="container">
      <div class='col-md-4 col-md-offset-4'>
             <!--<div class="input-group">-->
@@ -127,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="<?php echo $rowEmpresas['id_empresa']?>"><?php echo $rowEmpresas['nombre']?></option>
         <?php } ?>
        </select><br><br><br>
-       	<input class="btn btn-primary active" type="submit" value="Buscar" /> </form> <a href="pantallaAltaPuesto.php"> <button class="btn btn-primary active">Nuevo</button></a><br><br> 
+       	<input class="btn btn-primary active" type="submit" value="Buscar" /> </form> <a href="pantallaAltaPuesto.php"><button class="btn btn-primary">Nuevo</button></a><br><br> 
 
 
        <table class="table table-hover">
@@ -153,8 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <?php } }?>
        </tbody>
   </table>
-		<!--<input type="file" REQUIRED name="Imagen"/> <br><br>-->
-		<!--</form>--><br><br>
+		<br><br>
                 <a href="modificar.php?id=optradio[]"><button class="btn btn-primary active">Modificar</button></a>   <button class="btn btn-primary active">Eliminar</button>  <a href="index.php"> <button class="btn btn-primary active">Salir</button></a><br><br><br><br>
         </div></div></div>
     

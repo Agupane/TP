@@ -107,7 +107,7 @@ $competencias= $GestorCompetencia->buscarCompetencias();
 <body id="page-top" class="index bg-light-gray">
     <div class="container">
      <div class='col-md-4 col-md-offset-4'>
-            <div class="input-group">
+            <!--<div class="input-group">-->
             <h2>Dar de Alta puesto o función</h2>
 	<form action="darDeAltaPuesto.php" method="POST" enctype="multipart/form-data" onSubmit="return validation()">
 		<br><br><h4>Código</h4><input type="text" REQUIRED class="form-control" name="codigo" placeholder="Código..." value="" /> <br><br>
@@ -151,7 +151,7 @@ $competencias= $GestorCompetencia->buscarCompetencias();
        </tbody>
   </table><br><br><br>
 		<input class="btn btn-primary active" type="submit" value="Aceptar" />    <br><br>    
-        </form></div>
+        </form><!--</div>-->
             <center><a href ="gestionarPuestos.php"><button class="btn btn-primary active">Cancelar</button></a> </center>
     </div></div><br><br><br><br><br>  
     

@@ -13,4 +13,11 @@
 		    }
  		}
 
+ 		class RegistroAuditoriaDAO{
+ 			public function getRegistrosDeConsultor($id_consultor){
+ 				
+
+ 			}
+ 		}
+
 ?>

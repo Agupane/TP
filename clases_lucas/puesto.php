@@ -207,6 +207,10 @@ class GestorPuesto{
        if(!($puesto->enUso())) {
             date_default_timezone_set('America/Argentina/Buenos_Aires'); 
             $registroAuditoria= new RegistroAuditoria($puesto,date('Y-m-d'),date(' H:i:s A '),$id_consultor);
+            $consultorDAO= new consultorDAO;
+            $consultor=$consultorDTO->getConsultor($id_consultor);
+            $consultor->addAuditoria($registroAuditoria);
+
 
 
        }

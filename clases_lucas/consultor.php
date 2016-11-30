@@ -6,6 +6,7 @@ require ("Persona.php");
 class Consultor extends Persona
 {
 	private $nombre_usuario;
+    private $listaRegistrosAuditoria;
 
     /**
      * @return mixed
@@ -108,7 +109,34 @@ class ConsultorDTO
 
 class ConsultorDAO
 {
-	
+
+    public function getConsultor($id_consultor){
+
+        $conexion = new mysqli("localhost","root","","tp");
+        $query="SELECT * FROM consultor WHERE id_consultor='$id_consultor'";
+        $resultado = $conexion -> query($query);
+        $row = $resultado->fetch_assoc();
+        if($resultado){
+            $consultor = new Consultor();
+            $consultor->setId($row['id_consultor']);
+            $consultor->setApellido($row['apellido']);
+            $consultor->setNombre($row['nombre']);
+            $consultor->setDoc($row['num_dni']);
+            $consultor->setEmail($row['email']);
+            $registroDAO= new RegistroAuditoriaDAO;
+            $consultor->setRegistrosAuditoria($registroDAO->getRegistrosDeConsultor($id_consultor));
+
+
+        }
+        else{
+            return "Error";
+        }
+        $conexion->close();        
+        return $consultor;
+
+    }    
+
+
 	public function buscarConsultor($nombre){
 
         $conexion = new mysqli("localhost","root","","tp");
@@ -122,12 +150,12 @@ class ConsultorDAO
             $consultor->setNombre($row['nombre']);
             $consultor->setDoc($row['num_dni']);
             $consultor->setEmail($row['email']);
-            $consultor->setNacionalidad();
+
         }
         else{
             return "Error";
         }
-        
+        $conexion->close();        
         return $consultor;
 
     }
