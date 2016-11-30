@@ -30,6 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     $GestorAutenticar = GestorAuntenticar::getInstancia();
-    $GestorAutenticar->Ingresar($unPuestoDTO);
+    $GestorAutenticar->Ingresar($unConsultorDTO);
 
 }

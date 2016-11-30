@@ -30,7 +30,8 @@ class GestorAuntenticar
    }
 
    public function Ingresar(ConsultorDTO $consultorDTO){
-       if($this->validarNulidadYTipo($consultorDTO)){
+
+      if($this->validarNulidadYTipo($consultorDTO)){
            $consultor= $this->getConsultor($consultorDTO);
            if($consultor){
                if($this->Ingresa($consultorDTO->getUsuario(), $consultorDTO->getContra())){return true;}

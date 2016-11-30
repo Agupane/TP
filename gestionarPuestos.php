@@ -127,7 +127,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="<?php echo $rowEmpresas['id_empresa']?>"><?php echo $rowEmpresas['nombre']?></option>
         <?php } ?>
        </select><br><br><br>
-       	<input class="btn btn-primary active" type="submit" value="Buscar" /> </form> <a href="pantallaAltaPuesto.php"> <button class="btn btn-primary active">Nuevo</button></a><br><br> 
+       	<input class="btn btn-primary active" type="submit" value="Buscar" />
+        </form> <a href="pantallaAltaPuesto.php"> <button class="btn btn-primary active">Nuevo</button></a><br><br>
 
 
        <table class="table table-hover">

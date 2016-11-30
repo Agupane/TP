@@ -99,21 +99,14 @@ class ConsultorDAO
         $conexion = new mysqli("localhost","root","","tp");
         $query="SELECT * FROM consultor WHERE nombre='$nombre'";
         $resultado = $conexion -> query($query);
-        $row = $resultado->fetch_assoc();
+
         if($resultado){
-            $consultor = new Consultor();
-            $consultor->setId($row['id_consultor']);
-            $consultor->setApellido($row['apellido']);
-            $consultor->setNombre($row['nombre']);
-            $consultor->setDoc($row['num_dni']);
-            $consultor->setEmail($row['email']);
-            $consultor->setNacionalidad();
+           return true;
         }
         else{
             return "Error";
         }
-        
-        return $consultor;
+        $conexion->close();
 
     }
 }
