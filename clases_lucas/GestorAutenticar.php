@@ -25,7 +25,7 @@ class GestorAuntenticar
     }
 
    public function Ingresa($nombre, $contra){
-       $ldap = new LDAP();
+       $ldap = new GestorLDAP();
        return($ldap->ingresar($nombre,$contra));
    }
 
