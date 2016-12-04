@@ -26,7 +26,6 @@ $competencias= $GestorCompetencia->buscarCompetencias();
             function RedirectCancelar() {
                window.location="gestionarPuestos.php";
             }
-
 </script>
 
 <head>
@@ -41,6 +40,7 @@ $competencias= $GestorCompetencia->buscarCompetencias();
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">

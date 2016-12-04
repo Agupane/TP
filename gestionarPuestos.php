@@ -5,6 +5,8 @@ require ("clases_lucas/competencia.php");
 require ("clases_lucas/puesto.php");
 session_start();
 
+
+
 /*cargo todas las empresas para mostrar luego en el combobox*/
 $GestorPuesto= GestorPuesto::getInstancia();
 $empresas = $GestorPuesto->getAllEmpresas();
@@ -28,6 +30,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="en">
 
+<script type="text/javascript">
+            function RedirectAlta() {
+               window.location="pantallaAltaPuesto.php";
+            }
+</script>
+
+<script>
+function verifica(){ 
+    var valorRadio;
+    var i; 
+    for (i=0;i<document.verificaRadio.codigosGuardados.length;i++){ 
+        if (document.verificaRadio.codigosGuardados[i].checked) 
+            break; 
+    } 
+    valorRadio = document.verificaRadio.codigosGuardados[i].value;
+    //alert('Es'+valorRadio); 
+} 
+</script>
+
 <head>
 
     <meta charset="utf-8">
@@ -42,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/agency.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -111,27 +133,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- Services Section -->
 
 <body id="page-top" class="index">
-  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data" onSubmit="return validation()">
   <br><div class="container">
      <div class='col-md-4 col-md-offset-4'>
-            <!--<div class="input-group">-->
              <h2>Puestos o funciones a evaluar</h2>
   
-		<br><br><h4>Código</h4><input class="form-control" type="text" name="codigo" placeholder="Código..." value="" /> <br><br>
-		<h4>Nombre del Puesto</h4> <input class="form-control" type="text" name="nombrePuesto" placeholder="Nombre del Puesto..." value="" /> <br><br>
-		<br>
-		<center>
-		<h4>Empresa</h4><select name="empresa" class="form-control">
-		<option value="0"> - Empresa -</option>
-		<?php while($rowEmpresas=$empresas->fetch_assoc()){ ?>
+        <br><br><h4>Código</h4><input class="form-control" type="text" name="codigo" placeholder="Código..." value="" /> <br><br>
+        <h4>Nombre del Puesto</h4> <input class="form-control" type="text" name="nombrePuesto" placeholder="Nombre del Puesto..." value="" /> <br><br>
+        <br>
+        <center>
+        <h4>Empresa</h4><select name="empresa" class="form-control">
+        <option value="0"> - Empresa -</option>
+        <?php while($rowEmpresas=$empresas->fetch_assoc()){ ?>
             <option value="<?php echo $rowEmpresas['id_empresa']?>"><?php echo $rowEmpresas['nombre']?></option>
         <?php } ?>
        </select><br><br><br>
-       	<input class="btn btn-primary active" type="submit" value="Buscar" />
-        </form> <a href="pantallaAltaPuesto.php"> <button class="btn btn-primary active">Nuevo</button></a><br><br>
-
-
-       <table class="table table-hover">
+        <input class="btn btn-primary active" type="submit" value="Buscar" /> <input class="btn btn-primary active" type="button" value="Nuevo" onclick="RedirectAlta();" />
+        <br><br>
+        </center>
+        </div>
+        </div>
+        </form>
+<form name="verificaRadio">
+<div class="container">
+     <div class='col-md-4 col-md-offset-4'>
+    <table class="table table-fixed">
     <thead>
       <tr>
         <th>Codigo</th>
@@ -144,23 +170,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <?php 
         if($_SERVER["REQUEST_METHOD"] == "POST"){
         for ($i=0;$i<count($puesto); $i++) {
-        	?>
+          ?>
         <tr>
          <td> <?php echo $puesto[$i]->getCodigo(); ?> </td>
           <td> <?php echo $puesto[$i]->getNombre(); ?> </td>
            <td> <?php echo $GestorPuesto->buscarNombreEmpresa($puesto[$i]->getIdEmpresaDTO());?> </td>
-            <td><input type="radio" name="optradio[]" value="<?php $puesto[$i]->getCodigo(); ?>"></td>    
+            <td><input type="radio" name="codigosGuardados" value="<?php echo $puesto[$i]->getCodigo(); ?>" ></td>    
         </tr>
       <?php } }?>
        </tbody>
   </table>
-		<br><br>
-                <a href="modificar.php?id=optradio[]"><button class="btn btn-primary active">Modificar</button></a>   <button class="btn btn-primary active">Eliminar</button>  <a href="index.php"> <button class="btn btn-primary active">Salir</button></a><br><br><br><br>
-        </div></div></div>
-    
+  </div>
+    <br><br>
+</div>
+<!--<center><a href="modificar.php?id=optradio[]">--><input type="button" class="btn btn-primary active" onclick="verifica()" value="Modificar">  </form>
+<!-- Modal de Eliminar -->
+                <a href="#myModal" role="button" class="btn btn-primary active" data-toggle="modal" onclick="verifica()">Eliminar</a>
+
+
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="color-titulo"><strong>Eliminar Puesto</strong></h4>
+                            </div><!--final modal-header-->
+                            <div class="modal-body">
+                                <form method="post" action="#" role="form" id="form_id" >
+                                    <div class="container" style="margin-top:1px"></div>      
+                    <div class="panel-body">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="center-block">
+                                        <span class="col-sm-12 col-md-10  col-md-offset-1 ">
+                                            <h3>Los datos del puesto "Puesto" serán eliminados del Sistema</h3><br>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-10  col-md-offset-1 ">
+
+                                        <div class="form-group">
+                                            <input class="btn btn-primary active" type="submit" name="submit_id" id="bnt_id" value="Eliminar" onclick="submit_by_id()"/> 
+                                            <input class="btn btn-primary active" name="submit_id" value="Cancelar" onclick="submit_by_id()"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                    </div>
+                
+                            </form>
+                            </div><!--final modal-body-->
+                        </div><!--final modal-content-->
+                    </div><!-- final modal-dialog-->
+                </div><!-- final myModal -->
+
+<a href="index.php"> <button class="btn btn-primary active">Salir</button></a><!--</center>-->  
+<br><br><br><br><br><br><br><br><br><br>
     
 <!-- jQuery -->
     <script src="js/jquery.js"></script>
+    <script src="js/lab.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
@@ -175,11 +245,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="js/contact_me.js"></script>
 
     <!--ajax-->
-    <script src="js/ajax.js"></script>
+    <!--<script src="js/ajax.js"></script>-->
     <!-- Custom Theme JavaScript -->
     <script src="js/agency.js"></script>
 
     <script src="js/submit_javascript.js"></script>
+
 
 </body>
 </html>

@@ -53,6 +53,10 @@ class Puesto{
             public function getListaPonderacionCompetencia(){
                 return $this->listaPonderacionCompetencia;
             }
+
+            public function setListaPonderacionCompetencia($listaPonderacionCompetencia){
+                return $this->listaPonderacionCompetencia=$listaPonderacionCompetencia;
+            }
 }
 
 class PuestoDTO{
@@ -202,14 +206,40 @@ class GestorPuesto{
 
     }
 
+    public function modificar($puestoDTO){
+      if(($this->ValidarNulidadYTipo($unPuestoDTO)) && !($this->ValidarNombre($unPuestoDTO->getNombre())) ){
+        $puestoDAO=new PuestoDAO;
+        $pu=$puestoDAO->getPuesto($unPuestoDTO->getCodigo());
+        $cambio=$pu->validarCompetencias($unPuestoDTO->getCaracteristicasPuesto());
+
+        if($cambio){
+            for($i=0; $i<count($unPuestoDTO->getCaracteristicasPuesto());$i++){
+                $competencia=$competenciaDAO->getCompetencia($unPuestoDTO->getCompetencia($i));
+                $ponderacion=$unPuestoDTO->getPonderacion($i);
+                $po=new ponderacionCompetencia($competencia,$ponderacion);
+                $pu->addPonderacion($po);
+
+             }
+         }
+
+      }
+        else{header('Location:fracaso.php');}
+
+
+
+
+    }
+
     public function eliminarPuesto($codigo_puesto,$id_consultor){
         $puesto=$this->getPuesto($codigo_puesto);
        if(!($puesto->enUso())) {
             date_default_timezone_set('America/Argentina/Buenos_Aires'); 
             $registroAuditoria= new RegistroAuditoria($puesto,date('Y-m-d'),date(' H:i:s A '),$id_consultor);
             $consultorDAO= new consultorDAO;
-            $consultor=$consultorDTO->getConsultor($id_consultor);
+            $consultor=$consultorDAO->getConsultor($id_consultor);
             $consultor->addAuditoria($registroAuditoria);
+            $puestoDAO=new PuestoDAO;
+            $puestoDAO->actualizar($puesto);
 
 
 
@@ -280,6 +310,9 @@ class PuestoDAO{
             $cuestionarioDAO=new cuestionarioDAO;
             $cuestionarios= $cuestionarioDAO->buscarCuestionarios($codigo_puesto);
             $puesto->setCuestionarios($cuestionarios);
+            $PonderacionCompetenciaDAO= new PonderacionCompetenciaDAO;
+            $ponderacionCompetencias= $PonderacionCompetenciaDAO->getPonderacionCompetencias($codigo_puesto);
+            $puesto->setListaPonderacionCompetencia($ponderacionCompetencias);
 
         }
         $conexion->close();
@@ -355,7 +388,7 @@ class PuestoDAO{
     public function getAll(){
         $conexion = new mysqli("localhost","root","","tp");
         $query="SELECT codigo_puesto,nombre,id_empresa from puesto";
-        $resultado = $conexion -> query($query);
+        $resultado = $conexion->query($query);
         if($resultado){
             return $resultado;
     }
@@ -364,7 +397,21 @@ class PuestoDAO{
            }
     }
 
+    public function actualizarEliminado($puesto){
+        $conexion = new mysqli("localhost","root","","tp");
+        $codigo_puesto=$puesto->getCodigo();
+        $query="UPDATE TABLE puesto set eliminado=1 WHERE codigo_puesto='$codigo_puesto'";
+        $resultado=$conexion->query($query);
+        if($resultado){
+            
+            //no se si debo borrar fisicamente, logicamente o dejarlas a las poneracioens             //$ponderacionCompetencia= new PonderacionCompetenciaDAO;
+            //$ponderacionCompetencia->deleteAllPuesto($codigo_puesto);
+        }
+        else{
+            //aca va el error
+        }
 
+    }
 
     }
 

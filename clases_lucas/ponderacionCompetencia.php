@@ -11,7 +11,7 @@ class PonderacionCompetencia{
     private $ponderacion;
     private $competencia;
 
-    //recibe una compentecia (instancia) y una ponderacion (int)
+    //recibe una competecia (instancia) y una ponderacion (int)
     public function __construct(competencia $competencia,$ponderacion){
         $this->ponderacion= $ponderacion;
         $this->competencia=$competencia;
@@ -77,4 +77,32 @@ class PonderacionCompetenciaDAO
 
     }
 
+    public function getPonderacionCompetencias($codigo_puesto){
+        $conexion= new mysqli("localhost","root","","tp");
+        $query= "SELECT * FROM ponderacionCompetencia where codigo_puesto='$codigo_puesto'"
+        $resultado=$conexion->query($query);
+        $competenciaDAO= new CompetenciaDAO;
+        $listaPonderacionCompetencia=array();
+        while ($row=$resultado->fetch_assoc()){
+            $competencia=$competenciaDAO->getCompetencia($row["codigo_competencia"]);
+            $po=new PonderacionCompetencia($competencia,$row["ponderacion"]);
+            $listaPonderacionCompetencia[]=$po;
+            
+
+        }
+        $conexion->close();
+        return $listaPonderacionCompetencia;
+
+    }
+
+    public function deleteAllPuesto($codigo_puesto){
+        $conexion= new mysqli("localhost","root","","tp");
+        $query= "DELETE FROM ponderacionCompetencia where codigo_puesto='$codigo_puesto'"
+        $resultado=$conexion->query($query);
+        if($resultado){
+            $conexion->close();
+            return true;            
+        }
+
+    }
 }
