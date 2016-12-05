@@ -4,15 +4,29 @@ require ("connect_db.php");
 require ("clases_lucas/empresa.php");
 require ("clases_lucas/competencia.php");
 require ("clases_lucas/puesto.php");
+require ("clases_lucas/ponderacionCompetencia.php");
 
-/*cargo todas las empresas para mostrar luego en el combobox*/
-$GestorPuesto= GestorPuesto::getInstancia();
-$empresas = $GestorPuesto->getAllEmpresas();
-
-/*Ahora Busco todas las competencias para mostrar en una grilla*/
-
+if(!empty($_GET["codigo"])){
+    /*cargo todas las empresas para mostrar luego en el combobox*/
 $GestorCompetencia=GestorCompetencia::getInstancia();
 $competencias= $GestorCompetencia->buscarCompetencias();
+/*Ahora Busco todas las competencias para mostrar en una grilla*/
+$GestorPuesto= GestorPuesto::getInstancia();
+$empresas = $GestorPuesto->getAllEmpresas();
+/*Busco el puesto a modificar para mostrar sus datos solamente */ 
+$puestoDAO=new puestoDAO;
+$puestoAModificar=$puestoDAO->getPuesto($_GET["codigo"]);
+    
+}
+else {
+    header('Location:fracaso.php');
+}
+
+
+
+
+
+
 
 
 ?>
@@ -36,7 +50,7 @@ $competencias= $GestorCompetencia->buscarCompetencias();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Alta Puesto</title>
+    <title>Modificar Puesto</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -82,7 +96,7 @@ $competencias= $GestorCompetencia->buscarCompetencias();
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">Dar de Alta</a>
+                        <a class="page-scroll" href="#">Modificar</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="">Perfil</a>
@@ -102,7 +116,7 @@ $competencias= $GestorCompetencia->buscarCompetencias();
             <div class="row">
                <div class="text-left">
                 <div class="col-lg-2 col-md-offset-4">
-                    <h1>Alta de Puesto</h1>
+                    <h1>Modificar Puesto</h1>
                     </div>
                 </div>
             </div>
@@ -112,20 +126,20 @@ $competencias= $GestorCompetencia->buscarCompetencias();
 <!-- Services Section -->
 
 <body id="page-top" class="index bg-light-gray">
-  <form action="darDeAltaPuesto.php" method="POST" enctype="multipart/form-data" onSubmit="return validation()">
+  <form action="modificarPuesto.php" method="POST" enctype="multipart/form-data" onSubmit="return validation()">
     <div class="container">
      <div class='col-md-4 col-md-offset-4'>
             <!--<div class="input-group">-->
-            <h2>Dar de Alta puesto o función</h2>
-		<br><br><h4>Código</h4><input type="text" REQUIRED class="form-control" name="codigo" placeholder="Código..." value="" /> <br><br>
-		<h4>Nombre del Puesto</h4><input type="text" REQUIRED class="form-control" name="nombrePuesto" placeholder="Nombre del Puesto..." value="" /> <br><br>
-		<h4>Descripción</h4><input class="form-control" type="text" REQUIRED name="descripcion" placeholder="Descripción..." value="" /> <br>
+            <h2>Modificar puesto o función</h2>
+		<br><br><h4>Código</h4><input type="text" REQUIRED class="form-control" name="codigo"  value="" /> <br><br>
+		<h4>Nombre del Puesto</h4><input type="text" REQUIRED class="form-control" name="nombrePuesto"  value="<?php echo $puestoAModificar->getNombre() ?>" /><br><br>
+		<h4>Descripción</h4><input class="form-control" type="text" REQUIRED name="descripcion"  value="<?php echo $puestoAModificar->getDescripcion() ?>" /> <br>
 		<br><br>
 		<center>
 		<h4>Empresa</h4><select name="empresa" class="form-control" placeholder=".col-xs-2">
 		<option value="0"> - Empresa -</option>
 		<?php while($row=$empresas->fetch_assoc()){ ?>
-            <option value="<?php echo $row['id_empresa']?>"><?php echo $row['nombre']?></option>
+            <option value="<?php echo $row['id_empresa']?>"<?php if($puestoAModificar->tieneEmpresa($row["id_empresa"])){echo 'selected';}  ?>  ><?php echo $row['nombre']?></option>
         <?php } ?>
        </select><br><br><br><h4>Características del Puesto</h4>
        <table class="table table-bordered">
@@ -141,18 +155,19 @@ $competencias= $GestorCompetencia->buscarCompetencias();
         while($row =$competencias->fetch_assoc()){ ?>
 
         <tr>
-        <td><input type="checkbox" name="competencia[]" value="<?php echo $row['codigo_competencia']; ?>"></td>
+        <td><input type="checkbox" name="competencia[]" value="<?php echo $row['codigo_competencia']; ?>" 
+        <?php if($puestoAModificar->tieneCompetencia($row["codigo_competencia"])){echo 'checked';} ?>></td>
         <td> <?php echo $row['nombre']; ?> </td>
         <td><select name="pond[]" class="form-control" placeholder=".col-xs-2">         <option value="0">- Ponderación -</option>
-                       <option value="1">1</option>
-                       <option value="2">2</option>
-                       <option value="3">3</option>
-                       <option value="4">4</option>
-                       <option value="5">5</option>
-                       <option value="6">6</option>
-                       <option value="7">7</option>
-                       <option value="8">8</option>
-                       <option value="9">9</option></select></td>
+                       <option value="1" <?php if($puestoAModificar->tieneCompetencia($row["codigo_competencia"]) && $puestoAModificar->ponderacionDe($row['codigo_competencia'])==1){echo 'selected';} ?>>1</option>
+                       <option value="2" <?php if($puestoAModificar->tieneCompetencia($row["codigo_competencia"]) && $puestoAModificar->ponderacionDe($row['codigo_competencia'])==2){echo 'selected';} ?>>2</option>
+                       <option value="3" <?php if($puestoAModificar->tieneCompetencia($row["codigo_competencia"]) &&  $puestoAModificar->ponderacionDe($row['codigo_competencia'])==3){echo 'selected';} ?>>3</option>
+                       <option value="4" <?php if($puestoAModificar->tieneCompetencia($row["codigo_competencia"]) && $puestoAModificar->ponderacionDe($row['codigo_competencia'])==4){echo 'selected';} ?>>4</option>
+                       <option value="5" <?php if($puestoAModificar->tieneCompetencia($row["codigo_competencia"]) && $puestoAModificar->ponderacionDe($row['codigo_competencia'])==5){echo 'selected';} ?>>5</option>
+                       <option value="6" <?php if($puestoAModificar->tieneCompetencia($row["codigo_competencia"]) && $puestoAModificar->ponderacionDe($row['codigo_competencia'])==6){echo 'selected';} ?>>6</option>
+                       <option value="7" <?php if($puestoAModificar->tieneCompetencia($row["codigo_competencia"]) && $puestoAModificar->ponderacionDe($row['codigo_competencia'])==7){echo 'selected';} ?>>7</option>
+                       <option value="8" <?php if($puestoAModificar->tieneCompetencia($row["codigo_competencia"]) && $puestoAModificar->ponderacionDe($row['codigo_competencia'])==8){echo 'selected';} ?>>8</option>
+                       <option value="9" <?php if($puestoAModificar->tieneCompetencia($row["codigo_competencia"]) && $puestoAModificar->ponderacionDe($row['codigo_competencia'])==9){echo 'selected';} ?>>9</option></select></td>
         </tr>
       <?php } ?>
        </tbody>

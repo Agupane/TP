@@ -79,7 +79,7 @@ class PonderacionCompetenciaDAO
 
     public function getPonderacionCompetencias($codigo_puesto){
         $conexion= new mysqli("localhost","root","","tp");
-        $query= "SELECT * FROM ponderacionCompetencia where codigo_puesto='$codigo_puesto'"
+        $query= "SELECT * FROM ponderacionCompetencia where codigo_puesto='$codigo_puesto'";
         $resultado=$conexion->query($query);
         $competenciaDAO= new CompetenciaDAO;
         $listaPonderacionCompetencia=array();
@@ -97,7 +97,7 @@ class PonderacionCompetenciaDAO
 
     public function deleteAllPuesto($codigo_puesto){
         $conexion= new mysqli("localhost","root","","tp");
-        $query= "DELETE FROM ponderacionCompetencia where codigo_puesto='$codigo_puesto'"
+        $query= "DELETE FROM ponderacionCompetencia where codigo_puesto='$codigo_puesto'";
         $resultado=$conexion->query($query);
         if($resultado){
             $conexion->close();

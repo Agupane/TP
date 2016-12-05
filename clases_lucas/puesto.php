@@ -57,6 +57,38 @@ class Puesto{
             public function setListaPonderacionCompetencia($listaPonderacionCompetencia){
                 return $this->listaPonderacionCompetencia=$listaPonderacionCompetencia;
             }
+            
+
+            public function tieneCompetencia($codigo_competencia){
+            $contiene=false;
+            $caracteristicasPuesto=$this->getListaPonderacionCompetencia();
+            for($i=0;$i<count($caracteristicasPuesto);$i++){
+                 if($codigo_competencia==$caracteristicasPuesto[$i]->getCompetencia()->getCodigo()){
+                 $contiene=true;
+                 break;
+            }
+            }
+            return $contiene;
+            }
+
+            public function tieneEmpresa($id_empresa){
+                $empresa=$this->getEmpresa();
+                if($id_empresa==$empresa->getIdEmpresa()){
+                    return true;
+                }
+                else{return false;}
+            }
+
+            public function ponderacionDe($codigo_competencia){
+            $caracteristicasPuesto=$this->getListaPonderacionCompetencia();
+            for($i=0;$i<count($caracteristicasPuesto);$i++){
+                 if($codigo_competencia==$caracteristicasPuesto[$i]->getCompetencia()->getCodigo()){
+                    return $caracteristicasPuesto[$i]->getPonderacion();
+                    break;
+            }
+            }
+            return $bandera;
+            }
 }
 
 class PuestoDTO{
@@ -159,6 +191,8 @@ class PuestoDTO{
         $lista=$this->caracteristicasPuesto;
         return $lista[$indice][1];
     }
+
+
 }
 
 
@@ -304,12 +338,14 @@ class PuestoDAO{
         $conexion= new mysqli("localhost","root","","tp");
         $sql= "SELECT * FROM puesto where codigo_puesto='$codigo_puesto'"; 
         $resultado=$conexion->query($sql);
-        if($resultado->num_rows()==1){
+        if($resultado->num_rows==1){
             $row=$resultado->fetch_assoc();
-            $puesto= new Puesto($row["codigo_puesto"],$row["nombre"],$row["descripcion"],$row["id_empresa"]);
-            $cuestionarioDAO=new cuestionarioDAO;
-            $cuestionarios= $cuestionarioDAO->buscarCuestionarios($codigo_puesto);
-            $puesto->setCuestionarios($cuestionarios);
+            $empresaDAO=new empresaDAO;
+            $empresa=$empresaDAO->buscarEmpresa($row["id_empresa"]);
+            $puesto= new Puesto($row["codigo_puesto"],$row["nombre"],$row["descripcion"],$empresa);
+            //$cuestionarioDAO=new cuestionarioDAO;
+            //$cuestionarios= $cuestionarioDAO->buscarCuestionarios($codigo_puesto);
+            //$puesto->setCuestionarios($cuestionarios);
             $PonderacionCompetenciaDAO= new PonderacionCompetenciaDAO;
             $ponderacionCompetencias= $PonderacionCompetenciaDAO->getPonderacionCompetencias($codigo_puesto);
             $puesto->setListaPonderacionCompetencia($ponderacionCompetencias);

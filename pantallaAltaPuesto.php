@@ -88,7 +88,7 @@ $competencias= $GestorCompetencia->buscarCompetencias();
                         <a class="page-scroll" href="">Perfil</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="cerrar_sesion.php">Cerrar Sesion</a>
+                        <a class="page-scroll" href="cerrar_sesion.php">Cerrar Sesión</a>
                     </li>
             </div>
             <!-- /.navbar-collapse -->

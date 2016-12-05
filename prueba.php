@@ -1,4 +1,38 @@
-<!DOCTYPE HTML>  
+value="<?php echo $puestoAModificar->getEmpresa()->getIdEmpresa() ?>"><?php echo $puestoAModificar->getEmpresa()->getNombre() ?>
+
+<?php
+require ("connect_db.php");
+require ("clases_lucas/empresa.php");
+require ("clases_lucas/competencia.php");
+require ("clases_lucas/puesto.php");
+require ("clases_lucas/ponderacionCompetencia.php");
+$puestoDAO=new puestoDAO;
+$puestoAModificar=$puestoDAO->getPuesto(1);
+if($puestoAModificar->tieneCompetencia(1)){echo 'checked';}
+else {echo 'no la tiene';};
+
+$matris[0][0]=2;
+$matris[0][1]=1;
+$matris[1][0]=4;
+$matris[1][1]=3;
+$matris[2][0]=6;
+$matris[2][1]=5;
+$matris[3][0]=8;
+$matris[3][1]=7;
+
+$nombres = array_column($matris, 0);
+echo $nombres[0] . $nombres[1];
+echo 'checked';
+
+
+
+
+
+
+
+
+
+ /*<!DOCTYPE HTML>  
 <html>
 <head>
 <style>
@@ -13,10 +47,9 @@ require ("clases_lucas/empresa.php");
 require ("clases_lucas/competencia.php");
 require ("clases_lucas/puesto.php");
 
-/*cargo todas las empresas para mostrar luego en el combobox*/
 $GestorPuesto= GestorPuesto::getInstancia();
 $empresas = $GestorPuesto->getAllEmpresas();
-/*Ahora Busco todas las competencias para mostrar en una grilla*/
+
 
 $GestorCompetencia=GestorCompetencia::getInstancia();
 $competencias= $GestorCompetencia->buscarCompetencias();
@@ -76,4 +109,4 @@ $name = $email = $gender = $comment = $website = "";
        </tbody>
   </table>
 </body>
-</html>
+</html> */ ?>
